@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Masuk — SKYFORGE</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="cloud.css" />
+    <script src="cloud.js" defer></script>
+  <link rel="stylesheet" href="sf-polish.css" />
+</head>
+  <body class="auth-page" data-page="login">
+    <main class="auth-layout">
+      <section class="auth-story">
+        <a class="cloud-brand" href="index.html"
+          ><span class="cloud-mark">S</span> SKYFORGE</a
+        >
+        <div class="auth-story-copy">
+          <span class="overline">SKYFORGE CLOUD CONSOLE</span>
+          <h1>Instance, jaringan,<br />dan data aplikasimu.</h1>
+          <p>
+            Pilih region, deploy instance, dan periksa perubahan resource. Semua
+            tersedia dalam satu sesi demo.
+          </p>
+          <div class="auth-visual" aria-hidden="true">
+            <div class="server-layer">
+              <i></i><i></i><i></i><span>COMPUTE</span>
+            </div>
+            <div class="server-layer">
+              <i></i><i></i><i></i><span>NETWORK</span>
+            </div>
+            <div class="server-layer">
+              <i></i><i></i><i></i><span>STORAGE</span>
+            </div>
+            <span class="auth-orbit">● All systems ready</span>
+          </div>
+        </div>
+        <div class="auth-story-footer">
+          <span>SKYFORGE Technologies</span
+          ><span>Jakarta · Singapore · Tokyo</span>
+        </div>
+      </section>
+      <section class="auth-form-area">
+        <a href="index.html" class="auth-back">← Kembali ke website</a>
+        <div class="auth-card">
+          <span class="demo-pill">INTERACTIVE DEMO</span>
+          <h2>Selamat datang kembali.</h2>
+          <p class="muted">Masuk ke cloud workspace SKYFORGE.</p>
+          <button class="cloud-button secondary demo-entry" id="demoEntry">
+            Jelajahi dengan akun demo <span>↗</span>
+          </button>
+          <div class="auth-divider">
+            <span>atau masuk ke sesi simulasi</span>
+          </div>
+          <form id="loginForm">
+            <label class="cloud-field"
+              >Email<input
+                id="loginEmail"
+                type="email"
+                value="demo@skyforge.example"
+                required
+                autocomplete="off" /></label
+            ><label class="cloud-field"
+              >Password demo<span class="password-wrap"
+                ><input
+                  id="loginPassword"
+                  type="password"
+                  value="skyforge-demo"
+                  minlength="6"
+                  required
+                  autocomplete="off"
+                /><button
+                  type="button"
+                  id="showPassword"
+                  aria-label="Tampilkan password"
+                  aria-pressed="false"
+                >
+                  Lihat
+                </button></span
+              ></label
+            >
+            <div class="auth-help">
+              <span>Akun demo sudah terisi.</span
+              ><button type="button" class="text-button" id="resetDemo">
+                Reset akun demo
+              </button>
+            </div>
+            <p id="loginStatus" role="status" class="form-status"></p>
+            <button
+              type="submit"
+              class="cloud-button primary full"
+              id="loginSubmit"
+            >
+              Masuk ke workspace <span>→</span>
+            </button>
+          </form>
+          <p class="auth-disclosure">
+            Ini simulasi lokal. Gunakan data demo; jangan masukkan password
+            asli. Tidak ada autentikasi atau server sungguhan.
+          </p>
+        </div>
+        <p class="auth-footnote">Compute · Storage · Networking · Databases</p>
+      </section>
+    </main>
+  <script src="sf-polish.js" defer></script>
+</body>
+</html>

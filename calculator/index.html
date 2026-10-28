@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <base href="../" />
+    <title>Pricing calculator — SKYFORGE</title>
+    <meta
+      name="description"
+      content="Hitung estimasi resource cloud secara realtime."
+    />
+    <meta property="og:title" content="Pricing calculator — SKYFORGE" />
+    <meta
+      property="og:description"
+      content="Hitung estimasi resource cloud secara realtime."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/social-preview.png" />
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="public.css" />
+    <script src="public.js" defer></script>
+  <link rel="stylesheet" href="../sf-polish.css" />
+</head>
+  <body>
+    <a class="public-skip" href="calculator/#pageContent">Lewati navigasi</a>
+    <nav class="public-nav">
+      <a class="public-brand" href="index.html">▰ SKYFORGE</a>
+      <div>
+        <a href="compute/">Compute</a><a href="storage/">Storage</a
+        ><a href="network/">Network</a><a href="database/">Database</a
+        ><a href="docs/">Docs</a><a href="status/">Status</a
+        ><a class="public-button" href="login.html">Open console ↗</a>
+      </div>
+    </nav>
+    <main id="pageContent">
+      <header class="public-hero">
+        <span class="public-eyebrow">SIMPLE, TRANSPARENT ESTIMATES</span>
+        <h1>Hitung biaya konfigurasi cloud.</h1>
+        <p>
+          Ubah CPU, RAM, kapasitas SSD, dan region. Estimasi diperbarui setiap
+          kali konfigurasi berubah.
+        </p>
+      </header>
+      <section class="calculator-layout">
+        <form id="calculatorForm" class="public-card">
+          <label
+            >vCPU <output id="cpuValue">2</output
+            ><input name="cpu" type="range" min="1" max="16" value="2" /></label
+          ><label
+            >RAM <output id="ramValue">4 GB</output
+            ><input
+              name="ram"
+              type="range"
+              min="2"
+              max="64"
+              step="2"
+              value="4" /></label
+          ><label
+            >SSD <output id="ssdValue">80 GB</output
+            ><input
+              name="ssd"
+              type="range"
+              min="20"
+              max="1000"
+              step="20"
+              value="80" /></label
+          ><label
+            >Region<select name="region">
+              <option value="1">Jakarta</option>
+              <option value="1.08">Singapore (+8%)</option>
+              <option value="1.12">Tokyo (+12%)</option>
+            </select></label
+          ><label
+            >Periode<select name="period">
+              <option value="monthly">Bulanan</option>
+              <option value="yearly">Tahunan · hemat 20%</option>
+            </select></label
+          >
+        </form>
+        <aside class="public-card calculator-summary">
+          <span class="public-eyebrow">YOUR ESTIMATE</span>
+          <h2 id="calcTotal" aria-live="polite">Rp249.000</h2>
+          <p>per bulan ekuivalen</p>
+          <dl id="calcBreakdown"></dl>
+          <p id="calcAnnual"></p>
+          <a class="public-button" href="login.html"
+            >Coba konfigurasi di console →</a
+          >
+          <p class="fine-print">
+            Model: Rp65.000/vCPU + Rp25.000/GB RAM + Rp237,50/GB SSD, dikalikan
+            faktor region. Tidak termasuk pajak atau layanan lain; tidak ada
+            tagihan nyata. Model custom berbeda dari paket tetap.
+          </p>
+        </aside>
+      </section>
+    </main>
+    <footer class="public-footer">
+      <div>
+        <strong>SKYFORGE Technologies</strong>
+        <p>
+          Sudirman Central Business District<br />Jl. Jenderal Sudirman, Jakarta
+          Selatan<br />DKI Jakarta 12190, Indonesia.
+        </p>
+        <a href="https://wa.me/6282191206015">WhatsApp · 082191206015 ↗</a>
+      </div>
+      <div>
+        <a href="calculator/">Pricing calculator</a
+        ><a href="docs/">Documentation</a><a href="status/">System status</a
+        ><a href="changelog/">Changelog</a>
+      </div>
+      <div>
+        <a href="terms/">Terms</a><a href="privacy/">Privacy</a
+        ><a href="security/">Security</a><a href="contact/">Contact / Sales</a>
+      </div>
+      <small
+        >Prototype SKYFORGE · Seluruh layanan, harga, dan operasi cloud
+        merupakan simulasi.</small
+      >
+    </footer>
+    <div class="public-toast" id="publicToast" role="status"></div>
+  <script src="../sf-polish.js" defer></script>
+</body>
+</html>

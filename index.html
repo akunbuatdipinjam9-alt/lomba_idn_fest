@@ -1,0 +1,1936 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SKYFORGE cloud console prototype. Configure instances, compare costs, and explore storage, networking, and databases."
+    />
+    <meta name="theme-color" content="#284ed8" />
+    <title>SKYFORGE — Cloud infrastructure, clearly managed</title>
+    <meta property="og:title" content="SKYFORGE Technologies" />
+    <meta
+      property="og:description"
+      content="Configure cloud instances, compare resource costs, and explore the SKYFORGE console demo."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/social-preview.png" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="assets/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="skyforge.css" />
+    <link rel="stylesheet" href="motion.css" />
+    <link rel="stylesheet" href="checkout.css" />
+    <script src="script.js" defer></script>
+    <script src="pointer.js" defer></script>
+    <script src="motion.js" defer></script>
+    <script src="checkout.js" defer></script>
+    <link href="register.css" rel="stylesheet" />
+  <link rel="stylesheet" href="sf-polish.css" />
+    <link rel="stylesheet" href="server-globe.css" />
+    <script src="server-globe.js" defer></script>
+</head>
+  <body class="infrastructure-layout">
+    <svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true">
+      <defs>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4 12h15m-6-6 6 6-6 6" />
+        </symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24">
+          <path d="m6 9 6 6 6-6" />
+        </symbol>
+        <symbol id="i-cloud" viewBox="0 0 24 24">
+          <path d="M6 18a4 4 0 0 1-1-7.9A7 7 0 0 1 18.5 8a5 5 0 0 1-.5 10Z" />
+        </symbol>
+        <symbol id="i-server" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="7" rx="2" />
+          <rect x="3" y="14" width="18" height="7" rx="2" />
+          <path d="M7 6.5h.01M7 17.5h.01M15 6.5h3M15 17.5h3" />
+        </symbol>
+        <symbol id="i-database" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="5" rx="8" ry="3" />
+          <path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0" />
+        </symbol>
+        <symbol id="i-box" viewBox="0 0 24 24">
+          <path
+            d="m12 2 10 5v10l-10 5-10-5V7Zm0 10L2 7m10 5 10-5M12 12v10M7 4.5l10 5"
+          />
+        </symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+          <path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6Z" />
+          <path d="m8 12 3 3 5-6" />
+        </symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <ellipse cx="12" cy="12" rx="4" ry="9" />
+          <path d="M3 12h18M5 6h14M5 18h14" />
+        </symbol>
+        <symbol id="i-code" viewBox="0 0 24 24">
+          <path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path d="m5 12 4 4L19 6" />
+        </symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14" />
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24">
+          <path d="M20.5 13A9 9 0 0 1 11 3.5 9 9 0 1 0 20.5 13Z" />
+        </symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24">
+          <path d="m6 6 12 12M6 18 18 6" />
+        </symbol>
+        <symbol id="i-play" viewBox="0 0 24 24">
+          <path d="m9 5 11 7-11 7Z" />
+        </symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24">
+          <rect x="8" y="8" width="12" height="13" rx="2" />
+          <path d="M15 8V3H3v13h5" />
+        </symbol>
+        <symbol id="i-activity" viewBox="0 0 24 24">
+          <path d="M2 12h5l3-9 4 18 3-9h5" />
+        </symbol>
+        <symbol id="i-users" viewBox="0 0 24 24">
+          <circle cx="9" cy="7" r="3" />
+          <path
+            d="M2 21v-3a7 7 0 0 1 14 0v3M16 4a3 3 0 0 1 0 6m3 4a6 6 0 0 1 3 5v2"
+          />
+        </symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24">
+          <path d="m13 2-9 12h7l-1 8 10-13h-7Z" />
+        </symbol>
+        <symbol id="i-book" viewBox="0 0 24 24">
+          <path
+            d="M12 5c-4-3-8-2-10-1v15c3-2 7-1 10 1 3-2 7-3 10-1V4c-3-1-6-2-10 1Zm0 0v15"
+          />
+        </symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24">
+          <rect x="4" y="10" width="16" height="11" rx="2" />
+          <path d="M8 10V6a4 4 0 0 1 8 0v4M12 14v3" />
+        </symbol>
+        <symbol id="i-linux" viewBox="0 0 24 24">
+          <path d="m6 18 3-8V6a3 3 0 0 1 6 0v4l3 8-6 3ZM9 8h6M10 13l2 2 2-2" />
+        </symbol>
+        <symbol id="i-git" viewBox="0 0 24 24">
+          <path d="M6 3v12a6 6 0 0 0 6 6m6-18v6a6 6 0 0 1-6 6H6" />
+          <circle cx="6" cy="3" r="2" />
+          <circle cx="18" cy="3" r="2" />
+          <circle cx="12" cy="21" r="2" />
+        </symbol>
+      </defs>
+    </svg>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="utility">
+      <div class="container">
+        <span>SKYFORGE / CLOUD INFRASTRUCTURE</span
+        ><a href="#dashboard"
+          ><span data-id="Jelajahi preview platform"
+            >Explore the platform preview</span
+          ><svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg
+        ></a>
+      </div>
+    </div>
+    <header class="header" id="top">
+      <nav class="container navbar" aria-label="Main navigation">
+        <a class="brand" href="#top"
+          ><svg class="brand-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="3" fill="currentColor" />
+            <path
+              d="M23 8H10v6h12v10H8v-4h10v-3H6V4h17Z"
+              fill="#fff"
+              transform="translate(1 2) scale(.92)"
+            /></svg
+          >SKYFORGE</a
+        ><button
+          class="icon-button menu-toggle"
+          id="navToggle"
+          aria-label="Open navigation"
+          aria-controls="navMenu"
+          aria-expanded="false"
+        >
+          <svg class="icon" aria-hidden="true"><use href="#i-menu" /></svg>
+        </button>
+        <div class="nav-menu" id="navMenu">
+          <div class="nav-links">
+            <div class="dropdown">
+              <button
+                class="nav-link"
+                id="productMenu"
+                aria-expanded="false"
+                aria-controls="productDropdown"
+              >
+                <span data-id="Produk">Products</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-chevron" />
+                </svg>
+              </button>
+              <div class="dropdown-panel" id="productDropdown" hidden>
+                <a href="compute/"
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-server" /></svg
+                  ><span><b>Forge Compute</b><small>2–32 vCPU</small></span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-arrow" /></svg></a
+                ><a href="storage/"
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-box" /></svg
+                  ><span><b>Object Storage</b><small>S3-compatible</small></span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-arrow" /></svg></a
+                ><a href="database/"
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-database" /></svg
+                  ><span><b>Managed Databases</b><small>PostgreSQL</small></span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-arrow" /></svg></a
+                ><a href="#products"
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-grid" /></svg
+                  ><span><b>App Platform</b><small>Git workflow</small></span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-arrow" /></svg></a
+                ><a class="dropdown-bottom" href="#dashboard"
+                  ><span data-id="Jelajahi console">Explore the console</span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-arrow" /></svg
+                ></a>
+              </div>
+            </div>
+            <a class="nav-link" href="#solutions"
+              ><span data-id="Solusi">Solutions</span></a
+            ><a class="nav-link" href="#pricing"
+              ><span data-id="Harga">Pricing</span></a
+            ><a class="nav-link" href="#about"
+              ><span data-id="Perusahaan">Company</span></a
+            >
+            <a href="status/" class="nav-link"
+              ><span data-id="Status">Status</span></a
+            >
+          </div>
+          <div class="nav-actions">
+            <button
+              class="lang-toggle"
+              id="langToggle"
+              aria-label="Switch language to Indonesian"
+            >
+              EN<svg class="icon" aria-hidden="true">
+                <use href="#i-chevron" />
+              </svg></button
+            ><button
+              class="icon-button"
+              id="themeToggle"
+              aria-label="Toggle dark mode"
+              aria-pressed="false"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use href="#i-moon" />
+              </svg></button
+            ><button class="login" data-start-cloud="">
+              <span data-id="Console">Console</span
+              ><svg class="icon" aria-hidden="true">
+                <use href="#i-arrow" />
+              </svg></button
+            ><button class="btn primary small" data-start-cloud="">
+              <span data-id="Mulai sekarang">Get started</span
+              ><svg class="icon" aria-hidden="true">
+                <use href="#i-arrow" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="hero-index">
+              <span data-id="SKYFORGE / KATALOG INFRASTRUKTUR"
+                >SKYFORGE / INFRASTRUCTURE REGISTER</span
+              ><span class="index-rule"></span>
+            </div>
+            <h1>
+              <span data-id="Pilih region.">Choose a region.</span><br /><span
+                data-id="Jalankan instance."
+                >Start an instance.</span
+              >
+            </h1>
+            <p class="hero-lead">
+              <span
+                data-id="Jakarta, Singapore, atau Tokyo. Atur instance Linux, ikuti proses deployment, dan periksa resource pada workspace-mu."
+                >Jakarta, Singapore, or Tokyo. Configure a Linux instance,
+                follow its deployment, and check the resources assigned to your
+                workspace.</span
+              >
+            </p>
+            <dl class="hero-run-sheet">
+              <div>
+                <dt>REGION</dt>
+                <dd>jkt-1 / Jakarta</dd>
+              </div>
+              <div>
+                <dt>IMAGE</dt>
+                <dd>Ubuntu 24.04 LTS</dd>
+              </div>
+              <div>
+                <dt>RESOURCE</dt>
+                <dd>2 vCPU · 4 GB RAM</dd>
+              </div>
+              <div>
+                <dt>ENVIRONMENT</dt>
+                <dd>Browser sandbox</dd>
+              </div>
+            </dl>
+            <div class="hero-actions">
+              <a class="btn primary large" href="login.html" data-magnetic=""
+                ><span data-id="Buka workspace demo">Open demo workspace</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" /></svg
+              ></a>
+            </div>
+            <div class="hero-detail">
+              <span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-code" /></svg
+                >Linux &amp; containers</span
+              ><span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-globe" /></svg
+                >Jakarta · Singapore · Tokyo</span
+              >
+            </div>
+          </div>
+          <figure class="hero-figure">
+            <img
+              src="assets/hero-professional.png"
+              width="1024"
+              height="962"
+              alt="Professional wearing glasses and holding a laptop against a blue background"
+              fetchpriority="high"
+            />
+            <figcaption>
+              <span>SKYFORGE</span
+              ><span
+                ><span data-id="Ruang untuk berkarya."
+                  >Room to build.</span
+                ></span
+              >
+            </figcaption>
+          </figure>
+        </div>
+        <div class="container hero-footer">
+          <span
+            ><span data-id="Infrastruktur yang lebih mudah dipahami."
+              >Infrastructure, without the guesswork.</span
+            ></span
+          ><a href="#about"
+            ><span data-id="Kenali SKYFORGE">Get to know SKYFORGE</span
+            ><svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg
+          ></a>
+          <button
+            class="btn text-action hero-preview-link"
+            data-open-console=""
+          >
+            <span data-id="Buka preview console">Open console preview</span
+            ><svg class="icon" aria-hidden="true">
+              <use href="#i-arrow" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="section" id="products">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">
+                <span data-id="02 / PRODUK">02 / PRODUCTS</span>
+              </div>
+              <h2>
+                <span data-id="Compute, storage, dan database."
+                  >Compute, storage, and databases.</span
+                >
+              </h2>
+            </div>
+            <div class="heading-aside">
+              <p
+                data-id="Mulai dari kebutuhanmu. Tambahkan saat diperlukan. Jelajahi layanan cloud yang saling terhubung."
+              >
+                <span
+                  data-id="Empat layanan yang terhubung. Mulai dengan resource yang dibutuhkan aplikasimu."
+                  >Four connected services. Start with the resources your
+                  application needs.</span
+                >
+              </p>
+              <a class="link" href="#pricing"
+                ><span data-id="Temukan paketmu">Find your plan</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" /></svg
+              ></a>
+            </div>
+          </div>
+          <div class="register-columns">
+            <span>SERVICE</span><span>WORKLOAD / PURPOSE</span
+            ><span>CONFIGURATION</span><span>DETAILS</span>
+          </div>
+          <div class="product-grid service-register">
+            <article class="product-card">
+              <div class="product-top">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-server" /></svg
+                ><span>01</span>
+              </div>
+              <h3>Forge Compute</h3>
+              <div class="service-register-description">
+                <h4>
+                  <span data-id="Virtual machine Linux"
+                    >Linux virtual machines</span
+                  >
+                </h4>
+                <p
+                  data-id="Instance Linux fleksibel untuk website, API, dan background worker."
+                >
+                  Flexible Linux instances for your websites, APIs and
+                  background workers.
+                </p>
+              </div>
+
+              <div class="product-tags">
+                <span>2–32 vCPU</span><span>NVMe SSD</span>
+              </div>
+              <button class="link" data-product="Forge Compute">
+                <span data-id="Jelajahi Compute">Explore Compute</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </article>
+            <article class="product-card">
+              <div class="product-top">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-box" /></svg
+                ><span>02</span>
+              </div>
+              <h3>Object Storage</h3>
+              <div class="service-register-description">
+                <h4>
+                  <span data-id="Storage kompatibel S3"
+                    >S3-compatible storage</span
+                  >
+                </h4>
+                <p
+                  data-id="Simpan media, aset, dan backup dengan API yang kompatibel dengan S3."
+                >
+                  Keep media, assets and backups together with a familiar
+                  S3-compatible API.
+                </p>
+              </div>
+
+              <div class="product-tags">
+                <span>S3-compatible</span><span>Versioning</span>
+              </div>
+              <button class="link" data-product="Object Storage">
+                <span data-id="Jelajahi Storage">Explore Storage</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </article>
+            <article class="product-card">
+              <div class="product-top">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-database" /></svg
+                ><span>03</span>
+              </div>
+              <h3>Managed Databases</h3>
+              <div class="service-register-description">
+                <h4>
+                  <span data-id="PostgreSQL & MySQL"
+                    >PostgreSQL &amp; MySQL</span
+                  >
+                </h4>
+                <p
+                  data-id="Cara lebih sederhana mengelola PostgreSQL, MySQL, dan data aplikasi."
+                >
+                  A simpler way to work with PostgreSQL, MySQL and your
+                  application data.
+                </p>
+              </div>
+
+              <div class="product-tags">
+                <span>PostgreSQL</span><span>MySQL</span>
+              </div>
+              <button class="link" data-product="Managed Databases">
+                <span data-id="Jelajahi Database">Explore Database</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </article>
+            <article class="product-card">
+              <div class="product-top">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-grid" /></svg
+                ><span>04</span>
+              </div>
+              <h3>App Platform</h3>
+              <div class="service-register-description">
+                <h4>
+                  <span data-id="Deployment container"
+                    >Container deployments</span
+                  >
+                </h4>
+                <p
+                  data-id="Gunakan kode aplikasimu dan alur deployment yang lebih praktis."
+                >
+                  Bring your application code and explore an easier deployment
+                  workflow.
+                </p>
+              </div>
+
+              <div class="product-tags">
+                <span>Git workflow</span><span>Containers</span>
+              </div>
+              <button class="link" data-product="App Platform">
+                <span data-id="Jelajahi Platform">Explore Platform</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </article>
+          </div>
+          <div class="product-note">
+            <svg class="icon" aria-hidden="true"><use href="#i-code" /></svg
+            ><span
+              data-id="Menggunakan standar terbuka. Mengikuti alur kerjamu."
+              >Built around open standards. Designed around your workflow.</span
+            ><a href="#resources"
+              ><span data-id="Lihat referensi">Explore resources</span
+              ><svg class="icon" aria-hidden="true">
+                <use href="#i-arrow" /></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section class="section reference-about" id="about">
+        <div class="container reference-about-grid">
+          <div class="reference-about-copy">
+            <div class="eyebrow">
+              <span data-id="AKSES TIM">TEAM ACCESS</span>
+            </div>
+            <h2>
+              <span data-id="Atur akses sesuai peran anggota tim."
+                >Give each teammate the access they need.</span
+              >
+            </h2>
+            <p>
+              <span
+                data-id="Satukan developer dan operasional dalam satu workspace. Berikan akses sesuai tanggung jawab setiap anggota."
+                >Bring developers and operations into one workspace. Give each
+                person the access their work requires.</span
+              >
+            </p>
+            <ul class="reference-checks">
+              <li>
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-shield" /></svg
+                ><span
+                  data-id="Atur akses secara praktis dengan izin berbasis peran."
+                  >Deploy instant access with secure role-based
+                  permissions.</span
+                >
+              </li>
+              <li>
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-users" /></svg
+                ><span
+                  data-id="Kontrol akses developer, tim, dan billing secara terperinci."
+                  >Granular controls for developers, teams and billing.</span
+                >
+              </li>
+              <li>
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-activity" /></svg
+                ><span
+                  data-id="Pantau resource dan operasional dalam satu tampilan."
+                  >One clear view of your resources and operations.</span
+                >
+              </li>
+            </ul>
+            <a class="btn primary" href="#dashboard"
+              ><span data-id="Jelajahi workspace">Explore your workspace</span
+              ><svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg
+            ></a>
+          </div>
+          <div class="server-art-panel">
+            <img
+              src="assets/cloud-server-3d.png"
+              alt="Three stacked translucent blue glass cloud server modules"
+              width="1280"
+              height="915"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+      <section
+        class="platform-stats section platform-ledger"
+        aria-label="Platform concept targets"
+      >
+        <div class="container">
+          <p class="eyebrow" data-id="CATATAN PLATFORM / SPESIFIKASI DEMO">
+            PLATFORM RECORD / DEMO SPECIFICATION
+          </p>
+          <div class="motion-stats">
+            <div>
+              <strong data-count="99.99" data-decimals="2" data-suffix="%"
+                >99.99%</strong
+              ><span data-id="Target ketersediaan">Availability target</span>
+            </div>
+            <div>
+              <strong data-count="3" data-suffix=" Regions">3 Regions</strong
+              ><span data-id="Pilihan region pada demo"
+                >Regions in this demo</span
+              >
+            </div>
+            <div>
+              <strong data-count="24" data-suffix="/7">24/7</strong
+              ><span data-id="Konsep cakupan dukungan"
+                >Proposed support coverage</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section dashboard-section" id="dashboard">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">
+                <span data-id="PUSAT KENDALI CLOUD-MU"
+                  >MEET YOUR CONTROL CENTER</span
+                >
+              </div>
+              <h2>
+                <span data-id="Pantau resource dari satu console."
+                  >Check resources without switching tools.</span
+                >
+              </h2>
+            </div>
+            <div class="heading-aside">
+              <p
+                data-id="Satu ruang kerja untuk resource, tim, dan deployment berikutnya. Coba jelajahi console-nya."
+              >
+                A focused workspace for your resources, your team and your next
+                deployment. Take a look around.
+              </p>
+              <span class="sample-note"
+                ><i class="dot"></i
+                ><span data-id="Preview interaktif · data contoh"
+                  >Interactive preview · sample data</span
+                ></span
+              >
+            </div>
+          </div>
+          <div class="dashboard-shell">
+            <aside class="dash-sidebar">
+              <div class="dash-logo">
+                <svg class="brand-icon" viewBox="0 0 32 32" aria-hidden="true">
+                  <rect width="32" height="32" rx="3" fill="currentColor" />
+                  <path
+                    d="M23 8H10v6h12v10H8v-4h10v-3H6V4h17Z"
+                    fill="#fff"
+                    transform="translate(1 2) scale(.92)"
+                  /></svg
+                ><strong>SKYFORGE</strong>
+              </div>
+              <div class="workspace-select">
+                N <span>SKYFORGE workspace<small>PRODUCTION</small></span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-chevron" />
+                </svg>
+              </div>
+              <nav class="dash-nav" aria-label="Console preview">
+                <button
+                  class="active"
+                  data-console="overview"
+                  aria-pressed="true"
+                >
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-grid" /></svg
+                  ><span data-id="Ringkasan">Overview</span></button
+                ><button data-console="compute" aria-pressed="false">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-server" /></svg
+                  >Compute</button
+                ><button data-console="analytics" aria-pressed="false">
+                  Analytics</button
+                ><button data-console="deployment" aria-pressed="false">
+                  Deployment</button
+                ><button data-console="storage" aria-pressed="false">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-box" /></svg
+                  >Storage</button
+                ><button data-console="database" aria-pressed="false">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-database" /></svg
+                  >Databases</button
+                ><button data-console="team" aria-pressed="false">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-users" /></svg
+                  ><span data-id="Tim & akses">Team &amp; access</span>
+                </button>
+              </nav>
+              <div class="dash-sidebar-foot">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-book" /></svg
+                ><a href="#resources"
+                  ><span data-id="Dokumentasi">Documentation</span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-arrow" /></svg></a
+                ><span>SKYFORGE console preview</span>
+              </div>
+            </aside>
+            <div class="dash-main">
+              <div class="dash-toolbar">
+                <div>
+                  <span>SKYFORGE workspace</span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-chevron" /></svg
+                  ><strong id="consoleCrumb">Overview</strong>
+                </div>
+                <label
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-globe" /></svg
+                  ><select id="regionSelect" aria-label="Example cloud region">
+                    <option value="jkt">Jakarta · JKT-1</option>
+                    <option value="sgp">Singapore · SGP-1</option>
+                    <option value="tyo">Tokyo · TYO-1</option>
+                  </select></label
+                >
+              </div>
+              <div id="consoleContent" aria-live="polite"></div>
+              <div class="dash-bottom">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-shield" /></svg
+                ><span data-id="Workspace terpisah">Isolated workspace</span
+                ><span
+                  ><span data-id="Seluruh angka merupakan data contoh."
+                    >All values shown are illustrative.</span
+                  ></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section solutions" id="solutions">
+        <div class="container">
+          <div class="eyebrow">
+            <span data-id="KEBUTUHANMU. CARAMU.">YOUR WORKLOAD. YOUR WAY.</span>
+          </div>
+          <div class="section-heading">
+            <h2>
+              <span data-id="Pola deployment.">Deployment patterns.</span>
+            </h2>
+            <p
+              data-id="Pilih workload untuk melihat jalur resource dan konfigurasi awalnya."
+              class="heading-aside"
+            >
+              Select a workload to inspect its resource path and a starting
+              configuration.
+            </p>
+          </div>
+          <div class="solution-layout workload-register">
+            <div
+              class="solution-tabs"
+              role="tablist"
+              aria-label="Cloud solutions"
+            >
+              <button
+                id="tab-web"
+                role="tab"
+                aria-selected="true"
+                aria-controls="solutionPanel"
+                data-solution="web"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-code" /></svg
+                ><span
+                  ><span data-id="Aplikasi web & mobile"
+                    >Web &amp; mobile apps</span
+                  ><small data-id="API, frontend, dan layanan aplikasi"
+                    >APIs, frontends and application services</small
+                  ></span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg></button
+              ><button
+                id="tab-commerce"
+                role="tab"
+                aria-selected="false"
+                aria-controls="solutionPanel"
+                data-solution="commerce"
+                tabindex="-1"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-box" /></svg
+                ><span
+                  >E-commerce<small
+                    data-id="Katalog, transaksi, dan trafik musiman"
+                    >Catalogs, transactions and seasonal traffic</small
+                  ></span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg></button
+              ><button
+                id="tab-teams"
+                role="tab"
+                aria-selected="false"
+                aria-controls="solutionPanel"
+                data-solution="teams"
+                tabindex="-1"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-users" /></svg
+                ><span
+                  ><span data-id="Tim yang berkembang">Growing teams</span
+                  ><small data-id="Ruang kerja bersama, akses terkontrol"
+                    >Shared workspaces, controlled access</small
+                  ></span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="solution-panel"
+              id="solutionPanel"
+              role="tabpanel"
+              aria-labelledby="tab-web"
+              tabindex="0"
+            >
+              <div class="solution-panel-top">
+                <span class="pill"
+                  ><span data-id="CONTOH ARSITEKTUR"
+                    >EXAMPLE ARCHITECTURE</span
+                  ></span
+                ><span>01 / 03</span>
+              </div>
+              <h3 id="solutionTitle"></h3>
+              <p id="solutionDescription"></p>
+              <div class="architecture" id="architecture"></div>
+              <div class="solution-detail" id="solutionDetail"></div>
+              <button class="link" data-open-brief="">
+                <span data-id="Rencanakan infrastrukturmu"
+                  >Plan your infrastructure</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="deployment-section" id="deployment">
+        <div class="container deployment-grid">
+          <div>
+            <div class="eyebrow light">
+              <span data-id="DARI KODE KE CLOUD">FROM CODE TO CLOUD</span>
+            </div>
+            <h2>
+              <span data-id="Siap. Atur.">Ready. Set.</span><br /><span
+                data-id="Deploy."
+                >Deploy.</span
+              >
+            </h2>
+            <p
+              data-id="Alur deployment yang jelas di setiap langkahnya. Jalankan simulasi dan lihat prosesnya secara langsung."
+            >
+              A clear deployment flow, with every step in view. Try a simulated
+              launch and watch the pieces come together.
+            </p>
+            <div class="deployment-actions">
+              <button class="btn primary" id="deployBtn">
+                <span data-id="Jalankan deployment">Run deployment</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg></button
+              ><button class="btn white-outline" id="copyCommand">
+                <span data-id="Salin perintah">Copy command</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </div>
+            <p class="simulation-caption">
+              <span data-id="Hanya simulasi. Tidak membuat server sungguhan."
+                >Simulation only. No servers are provisioned.</span
+              >
+            </p>
+          </div>
+          <div class="terminal">
+            <div class="terminal-top">
+              <div class="window-dots"><i></i><i></i><i></i></div>
+              <span>skyforge — deploy</span><span id="deployStatus">READY</span>
+            </div>
+            <div class="terminal-body">
+              <code
+                ><span class="terminal-prompt">~ $</span> skyforge deploy
+                --project web-production</code
+              >
+              <div id="deployLog" role="log" aria-live="polite">
+                <p class="terminal-muted">
+                  <span
+                    data-id="Jalankan deployment demo untuk melihat tahapannya."
+                    >Start a demo deployment to view the steps.</span
+                  >
+                </p>
+              </div>
+              <div class="terminal-progress"><div id="deployBar"></div></div>
+              <div class="terminal-meta">
+                <span id="deployStep">0 / 4 steps</span
+                ><span id="deployPercent">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="network-journey" aria-labelledby="networkTitle">
+        <div class="container network-sticky">
+          <div class="network-intro">
+            <p class="eyebrow">THE PATH OF A REQUEST</p>
+            <h2
+              id="networkTitle"
+              data-id="Telusuri request dari pengguna ke database."
+            >
+              Trace a request from user to database.
+            </h2>
+            <p
+              data-id="Scroll untuk menelusuri perjalanan data melalui contoh arsitektur SKYFORGE."
+            >
+              Scroll to trace a request through a sample SKYFORGE architecture.
+            </p>
+            <small data-id="Diagram konsep · bukan traffic langsung"
+              >Concept diagram · not live traffic</small
+            >
+          </div>
+          <div
+            class="network-path"
+            aria-label="User to Edge Network to Load Balancer to Compute to Database"
+          >
+            <div class="network-track"><i></i><b></b></div>
+            <div class="network-node">
+              <span>01</span>
+              <div><strong>User</strong><small>Request begins</small></div>
+            </div>
+            <div class="network-node">
+              <span>02</span>
+              <div>
+                <strong>Edge Network</strong
+                ><small>Closest point of entry</small>
+              </div>
+            </div>
+            <div class="network-node">
+              <span>03</span>
+              <div>
+                <strong>Load Balancer</strong
+                ><small>Traffic finds its route</small>
+              </div>
+            </div>
+            <div class="network-node">
+              <span>04</span>
+              <div>
+                <strong>Compute</strong><small>Your application responds</small>
+              </div>
+            </div>
+            <div class="network-node">
+              <span>05</span>
+              <div>
+                <strong>Database</strong><small>Data, securely connected</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section infrastructure" id="infrastructure">
+        <div class="container">
+          <div class="infra-layout">
+            <div class="infrastructure-photo">
+              <img
+                src="assets/data-center.png"
+                alt="Data center aisle with server racks and network infrastructure"
+                width="768"
+                height="439"
+                loading="lazy"
+              />
+              <div class="photo-overlay">
+                <span
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-globe" /></svg
+                  ><span data-id="Fondasi yang terhubung."
+                    >A connected foundation.</span
+                  ></span
+                ><strong
+                  ><span data-id="Berpikir lebih jauh.">Think bigger.</span
+                  ><br /><span data-id="Bangun lebih dekat."
+                    >Build closer.</span
+                  ></strong
+                ><small
+                  ><span data-id="Ilustrasi infrastruktur · data center cloud"
+                    >Infrastructure imagery · cloud data center</span
+                  ></small
+                >
+              </div>
+            </div>
+            <div class="infra-copy">
+              <div class="eyebrow">
+                <span data-id="INFRASTRUKTUR YANG MASUK AKAL"
+                  >INFRASTRUCTURE THAT MAKES SENSE</span
+                >
+              </div>
+              <h2>
+                <span data-id="Tentukan lokasi aplikasimu berjalan."
+                  >Choose where your application runs.</span
+                >
+              </h2>
+              <p
+                data-id="Fokus pada hal yang penting: lokasi data, siapa yang dapat mengaksesnya, dan bagaimana aplikasimu berkembang."
+              >
+                Check the location of each resource, review access roles, and
+                choose the capacity required by your application.
+              </p>
+              <div class="infra-benefits">
+                <div>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-shield" />
+                  </svg>
+                  <div>
+                    <h3 data-id="Keamanan dalam alur kerja">
+                      Security in the workflow
+                    </h3>
+                    <p
+                      data-id="Jaringan privat, pengaturan akses, dan batas yang jelas antarproject."
+                    >
+                      Private networking, access roles and clear boundaries
+                      between projects.
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-activity" />
+                  </svg>
+                  <div>
+                    <h3 data-id="Pemantauan sejak awal">
+                      Visibility from the start
+                    </h3>
+                    <p
+                      data-id="Monitoring resource dan riwayat deployment dalam satu workspace."
+                    >
+                      Resource monitoring and deployment history, together in
+                      one workspace.
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-globe" />
+                  </svg>
+                  <div>
+                    <h3 data-id="Region yang sesuai">A region that fits</h3>
+                    <p
+                      data-id="Jelajahi Jakarta, Singapura, dan Tokyo pada preview region di bawah."
+                    >
+                      Explore Jakarta, Singapore and Tokyo in our region preview
+                      below.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="region-heading">
+            <strong
+              ><span data-id="Temukan titik awalmu."
+                >Find your starting point.</span
+              ></strong
+            ><span
+              ><span data-id="Region contoh · latensi ilustratif"
+                >Example regions · illustrative latency</span
+              ></span
+            >
+          </div>
+          <div class="server-earth" aria-labelledby="serverEarthTitle">
+            <div class="server-earth-top"><div><span class="earth-eyebrow">GLOBAL INFRASTRUCTURE</span><h3 id="serverEarthTitle">Explore our server regions</h3></div><button type="button" id="earthReset">View all regions ↗</button></div>
+            <div id="serverGlobe" aria-label="Interactive 3D globe of demo server locations"></div>
+            <p id="earthStatus" class="earth-status" role="status">Loading interactive Earth…</p>
+            <div class="earth-detail" aria-live="polite"><span class="earth-badge">DEMO REGION</span><h4 id="earthCity">Jakarta · JKT-1</h4><p id="earthCountry">Indonesia · 6.21° S, 106.85° E</p><p>City-level reference location. Server availability and latency are illustrative.</p></div>
+            <p class="earth-hint">Drag to rotate · Scroll to zoom · Select a marker or region below</p>
+          </div>
+          <div class="region-grid">
+            <button
+              class="region-card active"
+              data-region="jkt"
+              aria-pressed="true"
+            >
+              <span class="region-code">JKT</span
+              ><span><strong>Jakarta</strong><small>Indonesia</small></span
+              ><span class="region-latency"
+                ><i class="dot"></i>8 ms<small>Sample latency</small></span
+              ></button
+            ><button class="region-card" data-region="sgp" aria-pressed="false">
+              <span class="region-code">SGP</span
+              ><span><strong>Singapore</strong><small>Singapore</small></span
+              ><span class="region-latency"
+                ><i class="dot"></i>12 ms<small>Sample latency</small></span
+              ></button
+            ><button class="region-card" data-region="tyo" aria-pressed="false">
+              <span class="region-code">TYO</span
+              ><span><strong>Tokyo</strong><small>Japan</small></span
+              ><span class="region-latency"
+                ><i class="dot"></i>48 ms<small>Sample latency</small></span
+              >
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="team-story" class="section team-story">
+        <div class="container">
+          <div class="story-heading">
+            <div class="eyebrow">
+              <span data-id="KOLABORASI">COLLABORATION</span>
+            </div>
+            <h2>
+              <span data-id="Kelola deployment dan akses dalam satu workspace."
+                >Keep deployment and access in the same workspace.</span
+              >
+            </h2>
+            <p>
+              <span
+                data-id="Lihat status instance, peran anggota tim, dan region yang dipakai setiap resource."
+                >Check instance status, review team roles, and see the region
+                used by each resource.</span
+              >
+            </p>
+          </div>
+          <div class="team-story-photo">
+            <img
+              src="assets/team-workspace.png"
+              alt="Team collaborating around a laptop in a shared office"
+              width="1280"
+              height="854"
+              loading="lazy"
+            />
+            <div class="team-story-overlay">
+              <h3>
+                <span data-id="Periksa akses sebelum deployment berikutnya."
+                  >Review access before the next deployment.</span
+                >
+              </h3>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section sky-pricing" id="pricing">
+        <div class="container">
+          <div class="pricing-heading">
+            <div>
+              <div class="eyebrow">
+                <span data-id="PAKET & RESOURCE">PLANS &amp; RESOURCES</span>
+              </div>
+              <h2>
+                <span data-id="Konfigurasi instance / IDR"
+                  >Instance configurations / IDR</span
+                >
+              </h2>
+              <p
+                data-id="Ruang untuk mencoba dan berkembang. Paket untuk langkah berikutnya."
+              >
+                <span
+                  data-id="Bandingkan resource dan tagihan. Harga yang ditampilkan merupakan ilustrasi."
+                  >Compare resources and billing. Prices shown are
+                  illustrative.</span
+                >
+              </p>
+            </div>
+            <div
+              class="billing-switch"
+              role="group"
+              aria-label="Billing period"
+            >
+              <button class="active" data-billing="monthly" aria-pressed="true">
+                <span data-id="Bulanan">Monthly</span></button
+              ><button data-billing="yearly" aria-pressed="false">
+                <span data-id="Tahunan">Yearly</span><span>−20%</span>
+              </button>
+            </div>
+          </div>
+          <div class="pricing-grid price-register">
+            <article class="price-card">
+              <div class="price-register-name">
+                <h3>Starter</h3>
+                <p data-id="Untuk project berikutnya.">
+                  For your next side project.
+                </p>
+              </div>
+              <div class="price-register-cost">
+                <div class="price">
+                  <span>Rp</span><strong data-price="89">89.000</strong
+                  ><small data-id="/bulan">/month</small>
+                </div>
+                <div class="annual-total" data-annual="89">
+                  <span data-id="Ditagih bulanan">Billed monthly</span>
+                </div>
+              </div>
+
+              <button class="btn outline" data-plan="Starter">
+                <span data-id="Pilih Starter">Choose Starter</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+              <ul>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>1 vCPU</b> compute
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>2 GB</b> RAM
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>40 GB</b> NVMe SSD
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>2 TB</b>
+                  <span data-id="transfer data">data transfer</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><span data-id="Cloud firewall & monitoring"
+                    >Cloud firewall &amp; monitoring</span
+                  >
+                </li>
+              </ul>
+            </article>
+            <article class="price-card featured">
+              <div class="price-register-name">
+                <h3>Professional</h3>
+                <p data-id="Ruang untuk bisnis yang berkembang.">
+                  Room for your business to grow.
+                </p>
+              </div>
+              <div class="price-register-cost">
+                <div class="price">
+                  <span>Rp</span><strong data-price="249">249.000</strong
+                  ><small data-id="/bulan">/month</small>
+                </div>
+                <div class="annual-total" data-annual="249">
+                  <span data-id="Ditagih bulanan">Billed monthly</span>
+                </div>
+              </div>
+
+              <button class="btn primary" data-plan="Professional">
+                <span data-id="Pilih Professional">Choose Professional</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+              <ul>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>2 vCPU</b> compute
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>4 GB</b> RAM
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>80 GB</b> NVMe SSD
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>4 TB</b>
+                  <span data-id="transfer data">data transfer</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><span data-id="Cloud firewall & monitoring"
+                    >Cloud firewall &amp; monitoring</span
+                  >
+                </li>
+              </ul>
+            </article>
+            <article class="price-card">
+              <div class="price-register-name">
+                <h3>Business</h3>
+                <p data-id="Lebih kuat untuk aplikasi yang sibuk.">
+                  More power for busy applications.
+                </p>
+              </div>
+              <div class="price-register-cost">
+                <div class="price">
+                  <span>Rp</span><strong data-price="699">699.000</strong
+                  ><small data-id="/bulan">/month</small>
+                </div>
+                <div class="annual-total" data-annual="699">
+                  <span data-id="Ditagih bulanan">Billed monthly</span>
+                </div>
+              </div>
+
+              <button class="btn outline" data-plan="Business">
+                <span data-id="Pilih Business">Choose Business</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+              <ul>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>4 vCPU</b> compute
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>8 GB</b> RAM
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>160 GB</b> NVMe SSD
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><b>8 TB</b>
+                  <span data-id="transfer data">data transfer</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-check" /></svg
+                  ><span data-id="Cloud firewall & monitoring"
+                    >Cloud firewall &amp; monitoring</span
+                  >
+                </li>
+              </ul>
+            </article>
+          </div>
+          <a href="calculator/" class="link custom-price-link"
+            >Custom CPU / RAM / SSD → Pricing calculator</a
+          >
+          <div class="pricing-note">
+            <span
+              ><span data-id="Harga ilustrasi. Tidak ada pembayaran."
+                >Illustrative pricing. No payment collected.</span
+              ></span
+            ><button class="link" data-plan="Custom">
+              <span data-id="Butuh lebih besar? Ceritakan kebutuhanmu"
+                >Need something bigger? Let’s talk</span
+              ><svg class="icon" aria-hidden="true">
+                <use href="#i-arrow" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="section resources-section" id="resources">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">
+                <span data-id="TERUS BERKARYA">KEEP BUILDING</span>
+              </div>
+              <h2>
+                <span data-id="Pelajari tool yang dipakai dalam alur kerja."
+                  >Read the tools behind the workflow.</span
+                >
+              </h2>
+            </div>
+            <p
+              data-id="Kenali teknologi di balik aplikasi cloud modern."
+              class="heading-aside"
+            >
+              Get familiar with the technologies behind modern cloud
+              applications.
+            </p>
+          </div>
+          <div class="resources-grid">
+            <a
+              href="https://docs.docker.com/get-started/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="resource-art art-containers">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-box" /></svg
+                ><span>CONTAINER / 01</span>
+              </div>
+              <div class="resource-copy">
+                <span>DOCKER DOCUMENTATION ↗</span>
+                <h3>
+                  <span data-id="Build dan jalankan container."
+                    >Build and run a container.</span
+                  >
+                </h3>
+                <p data-id="Mulai mengenal container.">
+                  Get started with containers.
+                </p>
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg></div></a
+            ><a
+              href="https://www.postgresql.org/docs/current/tutorial.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="resource-art art-data">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-database" /></svg
+                ><span>DATABASE / 02</span>
+              </div>
+              <div class="resource-copy">
+                <span>POSTGRESQL DOCUMENTATION ↗</span>
+                <h3>
+                  <span data-id="Pelajari tabel, indeks, dan query."
+                    >Define tables, indexes, and queries.</span
+                  >
+                </h3>
+                <p data-id="Pelajari dasar-dasar PostgreSQL.">
+                  Learn the basics of PostgreSQL.
+                </p>
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg></div></a
+            ><a
+              href="https://developer.hashicorp.com/terraform/intro"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="resource-art art-code">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-code" /></svg
+                ><span>INFRASTRUCTURE / 03</span>
+              </div>
+              <div class="resource-copy">
+                <span>HASHICORP DOCUMENTATION ↗</span>
+                <h3>
+                  <span data-id="Tulis konfigurasi infrastruktur dalam berkas."
+                    >Describe infrastructure in configuration files.</span
+                  >
+                </h3>
+                <p data-id="Jelajahi infrastructure as code.">
+                  Explore infrastructure as code.
+                </p>
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-arrow" />
+                </svg></div
+            ></a>
+          </div>
+          <section class="ecosystem">
+            <div class="container">
+              <p>
+                <span data-id="STACK REFERENSI / BUKAN LOGO PARTNER"
+                  >REFERENCE STACK / NOT PARTNER ENDORSEMENTS</span
+                >
+              </p>
+              <div class="technology-list">
+                <span>Linux</span><span>Docker</span><span>Kubernetes</span
+                ><span>PostgreSQL</span><span>Terraform</span><span>Git</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section class="platform-directory" id="explore-platform">
+        <div class="container">
+          <div class="platform-directory-heading">
+            <h2 data-id="SKYFORGE / Indeks layanan">
+              SKYFORGE / Service index
+            </h2>
+            <p
+              data-id="Halaman referensi, catatan layanan, dan panduan penggunaan."
+            >
+              Reference pages, operating records, and setup instructions.
+            </p>
+          </div>
+          <div class="platform-directory-grid">
+            <article class="platform-directory-item">
+              <span class="directory-number">01</span>
+
+              <a class="link" href="compute/">Compute</a>
+              <code>/compute/</code>
+            </article>
+            <article class="platform-directory-item">
+              <span class="directory-number">02</span>
+
+              <a class="link" href="storage/">Storage</a>
+              <code>/storage/</code>
+            </article>
+            <article class="platform-directory-item">
+              <span class="directory-number">03</span>
+
+              <a class="link" href="network/">Network map</a>
+              <code>/network/</code>
+            </article>
+            <article class="platform-directory-item">
+              <span class="directory-number">04</span>
+
+              <a class="link" href="database/">Databases</a>
+              <code>/database/</code>
+            </article>
+            <article class="platform-directory-item">
+              <span class="directory-number">05</span>
+
+              <a class="link" href="calculator/">Pricing calculator</a>
+              <code>/calculator/</code>
+            </article>
+            <article class="platform-directory-item">
+              <span class="directory-number">06</span>
+
+              <a class="link" href="docs/">Documentation</a>
+              <code>/docs/</code>
+            </article>
+            <article class="platform-directory-item">
+              <span class="directory-number">07</span>
+
+              <a class="link" href="status/">System status</a>
+              <code>/status/</code>
+            </article>
+            <article class="platform-directory-item">
+              <span class="directory-number">08</span>
+
+              <a class="link" href="changelog/">Changelog</a>
+              <code>/changelog/</code>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="faq">
+        <div class="container faq-grid">
+          <div>
+            <div class="eyebrow">
+              <span data-id="PERTANYAAN UMUM">GOOD QUESTIONS</span>
+            </div>
+            <h2>
+              <span data-id="Sebelum membuka console."
+                >Before you open the console.</span
+              >
+            </h2>
+            <p data-id="Punya pertanyaan lain? Mulai dari kebutuhan proyekmu.">
+              Have a different question? Start with a project brief.
+            </p>
+            <button class="link" data-open-brief="">
+              <span data-id="Ceritakan kebutuhanmu">Tell us what you need</span
+              ><svg class="icon" aria-hidden="true">
+                <use href="#i-arrow" />
+              </svg>
+            </button>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>
+                <span data-id="Apa itu SKYFORGE?">What is SKYFORGE?</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p
+                data-id="SKYFORGE adalah konsep company profile layanan cloud yang menggabungkan compute, storage, dan layanan terkelola. Website ini dilengkapi preview console interaktif."
+              >
+                SKYFORGE is a cloud company profile concept, bringing compute,
+                storage and managed services into one clear experience. This
+                website includes an interactive console preview.
+              </p>
+            </details>
+            <details>
+              <summary>
+                <span data-id="Bisa mencoba console tanpa mendaftar?"
+                  >Can I try the console without signing up?</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p
+                data-id="Bisa. Buka preview console untuk berpindah resource, memilih region, dan menjalankan simulasi deployment. Preview ini tidak membuat server atau menagih pembayaran."
+              >
+                Yes. Open the console preview to switch between resources,
+                choose a region and run a simulated deployment. The preview does
+                not create servers or charge your account.
+              </p>
+            </details>
+            <details>
+              <summary>
+                <span data-id="Bagaimana perhitungan harganya?"
+                  >How does the pricing work?</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p
+                data-id="Paket menampilkan contoh harga bulanan dalam rupiah. Tagihan tahunan mendapat diskon 20%. Total tahunan ditampilkan saat kamu memilih tahunan; tidak ada pembayaran di website ini."
+              >
+                The plans show illustrative monthly pricing in Indonesian
+                rupiah. Annual billing applies a 20% discount. The annual total
+                is shown when you select yearly billing; no payment is collected
+                here.
+              </p>
+            </details>
+            <details>
+              <summary>
+                <span data-id="Bisa menggunakan aplikasi yang sudah ada?"
+                  >Can I bring my existing application?</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p
+                data-id="Konsep platform menggunakan alur Linux, container, dan database yang familiar. Pilih solusi untuk melihat contoh arsitektur sesuai kebutuhan aplikasimu."
+              >
+                The proposed platform supports familiar Linux, container and
+                database workflows. Use the solution explorer to see an example
+                architecture for your workload.
+              </p>
+            </details>
+            <details>
+              <summary>
+                <span data-id="Region-nya berada di mana?"
+                  >Where are the regions located?</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p
+                data-id="Jakarta, Singapura, dan Tokyo tersedia sebagai region contoh. Status, latensi, dan angka monitoring di website ini adalah data contoh, bukan pengukuran jaringan aktif."
+              >
+                Jakarta, Singapore and Tokyo are included as example regions.
+                Region status, latency and monitoring values on this site are
+                sample data, not measurements of a live network.
+              </p>
+            </details>
+            <details>
+              <summary>
+                <span data-id="Bagaimana cara menghubungi tim?"
+                  >How do I contact the team?</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p
+                data-id="Isi formulir kebutuhan proyek. Pada preview company profile ini, kebutuhanmu hanya disimpan di browser dan dapat diunduh sebagai file teks."
+              >
+                Use the project brief form to describe your requirements. In
+                this company profile preview, the brief is saved only in your
+                browser and can be downloaded as a text file.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="cta-section" id="contact">
+        <div class="container cta-inner">
+          <div>
+            <div class="eyebrow light">
+              <span data-id="KONTAK / REVIEW KONFIGURASI"
+                >CONTACT / CONFIGURATION REVIEW</span
+              >
+            </div>
+            <h2>
+              <span data-id="Kirim kebutuhan resource aplikasimu."
+                >Send us your resource requirements.</span
+              >
+            </h2>
+            <p>
+              <span
+                data-id="Sertakan region, CPU, RAM, dan perkiraan storage. Hubungi kami lewat WhatsApp."
+                >Include your region, CPU, RAM, and estimated storage. Contact
+                us on WhatsApp.</span
+              >
+            </p>
+          </div>
+          <div class="cta-buttons">
+            <div class="contact-phone">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"
+                />
+              </svg>
+              <div>
+                <span>WHATSAPP</span
+                ><a
+                  href="https://wa.me/6282191206015"
+                  aria-label="WhatsApp SKYFORGE: 082191206015"
+                  >082191206015</a
+                ><small data-id="Chat kami untuk informasi layanan."
+                  >Chat with us for service information.</small
+                >
+              </div>
+            </div>
+            <button
+              class="btn white large"
+              data-start-cloud=""
+              data-magnetic=""
+            >
+              <span data-id="Mulai proyekmu">Start your project</span
+              ><svg class="icon" aria-hidden="true">
+                <use href="#i-arrow" />
+              </svg></button
+            ><button class="link white-link" data-open-console="">
+              <span data-id="Jelajahi console dulu"
+                >Explore the console first</span
+              ><svg class="icon" aria-hidden="true">
+                <use href="#i-arrow" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container footer-top">
+        <div class="footer-brand">
+          <a class="brand" href="#top"
+            ><svg class="brand-icon" viewBox="0 0 32 32" aria-hidden="true">
+              <rect width="32" height="32" rx="3" fill="currentColor" />
+              <path
+                d="M23 8H10v6h12v10H8v-4h10v-3H6V4h17Z"
+                fill="#fff"
+                transform="translate(1 2) scale(.92)"
+              /></svg
+            >SKYFORGE</a
+          >
+          <p>
+            <span data-id="Compute, storage, dan jaringan."
+              >Compute, storage, and networking.</span
+            >
+          </p>
+          <address class="company-address">
+            <strong>SKYFORGE Technologies</strong><br />
+            Sudirman Central Business District<br />
+            Jl. Jenderal Sudirman, Jakarta Selatan<br />
+            DKI Jakarta 12190, Indonesia.
+          </address>
+          <button class="link" data-open-console="">
+            <span data-id="Buka preview console">Open console preview</span
+            ><svg class="icon" aria-hidden="true">
+              <use href="#i-arrow" />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <h3><span data-id="Produk">Products</span></h3>
+          <a href="#products">Forge Compute</a
+          ><a href="#products">Object Storage</a
+          ><a href="#products">Managed Databases</a
+          ><a href="#products">App Platform</a>
+        </div>
+        <div>
+          <h3><span data-id="Jelajahi">Explore</span></h3>
+          <a href="#solutions"><span data-id="Solusi">Solutions</span></a
+          ><a href="#infrastructure"
+            ><span data-id="Infrastruktur">Infrastructure</span></a
+          ><a href="#pricing"><span data-id="Harga">Pricing</span></a
+          ><a href="#resources"
+            ><span data-id="Referensi developer">Developer resources</span></a
+          >
+        </div>
+        <div>
+          <h3><span data-id="Perusahaan">Company</span></h3>
+          <a href="#about"
+            ><span data-id="Tentang SKYFORGE">About SKYFORGE</span></a
+          ><a href="#faq">FAQ</a
+          ><a href="#contact"><span data-id="Kontak">Contact</span></a
+          ><button class="footer-link" id="privacyBtn">
+            <span data-id="Privasi & data">Privacy &amp; data</span>
+          </button>
+          <a
+            aria-label="WhatsApp SKYFORGE: 082191206015"
+            href="https://wa.me/6282191206015"
+            >082191206015</a
+          >
+        </div>
+      </div>
+      <div
+        class="container"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 24px;
+          padding-bottom: 24px;
+          font-size: 12px;
+        "
+      >
+        <a href="status/">Status</a><a href="docs/">Docs</a
+        ><a href="calculator/">Calculator</a><a href="terms/">Terms</a
+        ><a href="privacy/">Privacy</a><a href="security/">Security</a
+        ><a href="contact/">Contact</a><a href="changelog/">Changelog</a>
+      </div>
+      <div class="container footer-bottom">
+        <span
+          >© 2026 SKYFORGE.
+          <span data-id="Untuk langkah berikutnya."
+            >Built for what’s next.</span
+          ></span
+        ><span
+          ><span data-id="Brand konsep · layanan, region & harga ilustratif."
+            >Concept brand · illustrative services, regions &amp; pricing.</span
+          ></span
+        ><a href="#top"><span data-id="Kembali ke atas">Back to top</span> ↑</a>
+      </div>
+    </footer>
+    <dialog id="briefDialog" aria-labelledby="briefTitle">
+      <div class="dialog-top">
+        <span class="eyebrow"
+          ><span data-id="MARI MULAI MEMBANGUN"
+            >LET’S BUILD SOMETHING</span
+          ></span
+        ><button
+          class="icon-button"
+          data-close-dialog=""
+          aria-label="Close dialog"
+        >
+          <svg class="icon" aria-hidden="true"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <h2 data-id="Jelaskan kebutuhan aplikasimu." id="briefTitle">
+        Describe your application requirements.
+      </h2>
+      <p
+        data-id="Buat dan unduh ringkasan proyekmu. Preview ini menyimpan ringkasan hanya di perangkat ini."
+        class="dialog-description"
+      >
+        Create a project brief and download it. This preview saves your brief on
+        this device only.
+      </p>
+      <form id="briefForm">
+        <div class="form-row">
+          <label
+            ><span data-id="Nama kamu">Your name</span
+            ><input
+              name="name"
+              autocomplete="name"
+              required
+              maxlength="80" /></label
+          ><label
+            >Email<input
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              maxlength="160"
+          /></label>
+        </div>
+        <div class="form-row">
+          <label
+            ><span data-id="Perusahaan / proyek">Company / project</span
+            ><input
+              name="company"
+              autocomplete="organization"
+              maxlength="120" /></label
+          ><label
+            ><span data-id="Paket">Plan</span
+            ><select name="plan">
+              <option>Starter</option>
+              <option>Professional</option>
+              <option>Business</option>
+              <option>Custom</option>
+            </select></label
+          >
+        </div>
+        <label
+          ><span data-id="Apa yang ingin kamu bangun?"
+            >What are you building?</span
+          ><textarea
+            name="message"
+            required
+            minlength="10"
+            maxlength="2000"
+            rows="4"
+          ></textarea></label
+        ><label class="consent"
+          ><input type="checkbox" name="consent" required /><span
+            ><span
+              data-id="Simpan ringkasan di browser. Data tidak dikirim ke tim atau server."
+              >Save this brief in my browser. It will not be sent to a team or
+              server.</span
+            ></span
+          ></label
+        ><button class="btn primary full" type="submit">
+          <span data-id="Simpan ringkasan proyek">Save project brief</span
+          ><svg class="icon" aria-hidden="true">
+            <use href="#i-arrow" />
+          </svg>
+        </button>
+      </form>
+      <div class="brief-result" id="briefResult" hidden>
+        <span class="success-icon"
+          ><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg
+        ></span>
+        <h3 data-id="Ringkasan proyek tersimpan.">
+          Your project brief is saved.
+        </h3>
+        <p data-id="Unduh salinannya atau edit ringkasanmu kapan saja.">
+          Download a copy or edit your brief at any time.
+        </p>
+        <div>
+          <button class="btn primary" id="downloadBrief">
+            <span data-id="Unduh .txt">Download .txt</span
+            ><svg class="icon" aria-hidden="true">
+              <use href="#i-arrow" />
+            </svg></button
+          ><button class="btn outline" id="editBrief">
+            <span data-id="Edit ringkasan">Edit brief</span>
+          </button>
+        </div>
+        <button class="link delete-link" id="deleteBrief">
+          <span data-id="Hapus ringkasan tersimpan">Delete saved brief</span>
+        </button>
+      </div>
+    </dialog>
+    <dialog id="infoDialog" aria-labelledby="infoTitle">
+      <div class="dialog-top">
+        <span class="eyebrow">SKYFORGE</span
+        ><button
+          class="icon-button"
+          data-close-dialog=""
+          aria-label="Close dialog"
+        >
+          <svg class="icon" aria-hidden="true"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <h2 id="infoTitle"></h2>
+      <div id="infoBody"></div>
+    </dialog>
+    <div class="toast" id="toast" role="status"></div>
+  <script src="sf-polish.js" defer></script>
+</body>
+</html>

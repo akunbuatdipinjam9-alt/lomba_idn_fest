@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloud Console — SKYFORGE</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="cloud.css" />
+    <script src="cloud-extras.js" defer></script>
+    <script src="cloud.js" defer></script>
+  <link rel="stylesheet" href="sf-polish.css" />
+</head>
+  <body class="console-page" data-page="console">
+    <a class="cloud-skip" href="#appContent">Lewati navigasi</a>
+    <div class="cloud-app">
+      <aside class="cloud-sidebar">
+        <a href="index.html" class="cloud-brand"
+          ><span class="cloud-mark">S</span> SKYFORGE</a
+        >
+        <div class="workspace-card">
+          <span class="workspace-avatar">D</span>
+          <div>
+            <strong id="workspaceName">Demo workspace</strong
+            ><small>PERSONAL WORKSPACE</small>
+          </div>
+        </div>
+        <span class="sidebar-label">WORKSPACE</span>
+        <nav class="cloud-nav" aria-label="Cloud console">
+          <button data-view="overview"><span>◫</span>Overview</button
+          ><button data-view="instances"><span>▤</span>Compute instances</button
+          ><button data-view="volumes"><span>▤</span>Volumes</button
+          ><button data-view="networks"><span>◇</span>Networks</button
+          ><button data-view="storage"><span>▱</span>Object storage</button
+          ><button data-view="databases"><span>▦</span>Databases</button
+          ><span class="sidebar-label">MANAGE</span
+          ><button data-view="billing"><span>◈</span>Billing & plans</button
+          ><button data-view="keys"><span>⌘</span>API Keys</button
+          ><button data-view="activity"><span>↗</span>Activity log</button
+          ><button data-view="settings"><span>⚙</span>Settings</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sandbox-note">
+            <i class="status-dot"></i><strong>Sandbox environment</strong>
+            <p>Resource dan biaya merupakan simulasi.</p>
+          </div>
+          <a href="docs/">Dokumentasi ↗</a
+          ><a href="https://wa.me/6282191206015">Hubungi support ↗</a
+          ><button id="logoutButton" class="text-button">
+            Keluar dari sesi demo →
+          </button>
+        </div>
+      </aside>
+      <div class="cloud-workspace">
+        <header class="cloud-topbar">
+          <div class="cloud-breadcrumb">
+            Workspace <span>/</span
+            ><strong id="viewBreadcrumb">Overview</strong>
+          </div>
+          <div class="topbar-actions">
+            <label class="cloud-search"
+              ><span aria-hidden="true">⌕</span
+              ><input
+                id="cloudSearch"
+                type="search"
+                placeholder="Cari instance…"
+                aria-label="Cari instance" /></label
+            ><button
+              class="icon-button"
+              id="notificationButton"
+              aria-label="Notifikasi"
+              aria-expanded="false"
+            >
+              ♧<i></i></button
+            ><button
+              class="profile-avatar"
+              id="profileAvatar"
+              aria-label="Pengaturan akun demo"
+            >
+              D
+            </button>
+          </div>
+        </header>
+        <div class="cloud-demo-bar">
+          <span><i class="status-dot"></i> DEMO WORKSPACE</span
+          ><span>Tidak terhubung ke infrastruktur atau pembayaran nyata.</span>
+        </div>
+        <div class="notification-panel" id="notificationPanel" hidden>
+          <strong>Notifikasi workspace</strong>
+          <p>Selamat datang di SKYFORGE.</p>
+          <small
+            >Mulai deployment demo pertamamu dari tombol Create instance.</small
+          >
+        </div>
+        <main id="appContent" class="cloud-content" tabindex="-1">
+          <div
+            class="console-skeleton"
+            role="status"
+            aria-label="Menyiapkan workspace"
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </main>
+        <footer class="cloud-app-footer">
+          <span>SKYFORGE Technologies</span
+          ><span><i class="status-dot"></i> Simulated systems operational</span>
+        </footer>
+      </div>
+    </div>
+    <dialog
+      class="cloud-dialog"
+      id="resourceDialog"
+      aria-labelledby="resourceTitle"
+    >
+      <div class="dialog-title">
+        <div>
+          <span class="overline">NEW RESOURCE</span>
+          <h2 id="resourceTitle">Create instance</h2>
+        </div>
+        <button
+          type="button"
+          class="icon-button"
+          data-close-resource
+          aria-label="Tutup"
+        >
+          ×
+        </button>
+      </div>
+      <form id="instanceForm">
+        <label class="cloud-field"
+          >Instance name<input
+            name="name"
+            required
+            pattern="[a-zA-Z0-9][a-zA-Z0-9-]{1,39}"
+            maxlength="40"
+            value="web-production-02"
+          /><small>2–40 karakter: huruf, angka, dan tanda hubung.</small></label
+        >
+        <div class="cloud-two">
+          <label class="cloud-field"
+            >Region<select name="region">
+              <option value="Jakarta">Jakarta · JKT-1</option>
+              <option value="Singapore">Singapore · SGP-1</option>
+              <option value="Tokyo">Tokyo · TYO-1</option>
+            </select></label
+          ><label class="cloud-field"
+            >Image<select name="image">
+              <option>Ubuntu 24.04 LTS</option>
+              <option>Debian 12</option>
+              <option>Alpine Linux 3.20</option>
+            </select></label
+          >
+        </div>
+        <label class="cloud-field"
+          >Instance size<select name="size">
+            <option value="starter">
+              Starter · 1 vCPU / 2 GB · Rp89.000/bln
+            </option>
+            <option value="professional">
+              Professional · 2 vCPU / 4 GB · Rp249.000/bln
+            </option>
+            <option value="business">
+              Business · 4 vCPU / 8 GB · Rp699.000/bln
+            </option>
+          </select></label
+        >
+        <div class="cloud-notice">
+          Deployment berjalan di browser sebagai simulasi. Tidak membuat server
+          atau menagih biaya.
+        </div>
+        <p class="form-status" id="resourceStatus" role="status"></p>
+        <div class="dialog-actions">
+          <button
+            type="button"
+            class="cloud-button secondary"
+            data-close-resource
+          >
+            Batal</button
+          ><button class="cloud-button primary" type="submit">
+            Deploy instance →
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog
+      class="cloud-dialog compact"
+      id="confirmDialog"
+      aria-labelledby="confirmTitle"
+    >
+      <h2 id="confirmTitle">Hapus instance?</h2>
+      <p id="confirmDescription" class="muted"></p>
+      <div class="dialog-actions">
+        <button class="cloud-button secondary" id="cancelDelete">Batal</button
+        ><button class="cloud-button danger" id="confirmDelete">
+          Hapus instance
+        </button>
+      </div>
+    </dialog>
+    <div id="cloudToast" class="cloud-toast" role="status"></div>
+  <script src="sf-polish.js" defer></script>
+</body>
+</html>

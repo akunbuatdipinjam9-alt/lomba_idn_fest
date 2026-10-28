@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <base href="../" />
+    <title>Quick Start docs — SKYFORGE</title>
+    <meta name="description" content="Dari nol ke instance demo pertama." />
+    <meta property="og:title" content="Quick Start docs — SKYFORGE" />
+    <meta
+      property="og:description"
+      content="Dari nol ke instance demo pertama."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/social-preview.png" />
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="public.css" />
+    <script src="public.js" defer></script>
+  <link rel="stylesheet" href="../sf-polish.css" />
+</head>
+  <body>
+    <a class="public-skip" href="docs/#pageContent">Lewati navigasi</a>
+    <nav class="public-nav">
+      <a class="public-brand" href="index.html">▰ SKYFORGE</a>
+      <div>
+        <a href="compute/">Compute</a><a href="storage/">Storage</a
+        ><a href="network/">Network</a><a href="database/">Database</a
+        ><a href="docs/">Docs</a><a href="status/">Status</a
+        ><a class="public-button" href="login.html">Open console ↗</a>
+      </div>
+    </nav>
+    <main id="pageContent">
+      <div class="docs-layout">
+        <aside>
+          <span class="public-eyebrow">DOCUMENTATION</span
+          ><a aria-current="page" href="docs/">Quick Start</a
+          ><a href="docs/compute/">Compute</a><a href="docs/storage/">Storage</a
+          ><a href="docs/networking/">Networking</a><a href="docs/api/">API</a
+          ><a href="docs/cli/">CLI</a>
+        </aside>
+        <article class="public-prose">
+          <header class="public-hero">
+            <span class="public-eyebrow">GUIDES / QUICK START</span>
+            <h1>Quick Start</h1>
+            <p>Dari nol ke instance demo pertama.</p>
+          </header>
+          <span class="public-tag">PROTOTYPE DOCUMENTATION</span>
+          <h2>1. Buka workspace</h2>
+          <p>
+            Login hanya menyiapkan sesi browser. Buka Compute instances dan
+            pilih Create instance. Isi nama unik, region, image Linux, dan
+            ukuran resource. Setelah Deploy instance dipilih, status menampilkan
+            Provisioning selama simulasi berlangsung, lalu berubah menjadi
+            Running. Perubahan dicatat pada Activity log.
+          </p>
+          <h2>2. Jalankan deployment</h2>
+          <div class="code-block">
+            <button data-copy-code="">Copy</button>
+            <pre><code>skyforge deploy --name web-demo --region jakarta</code></pre>
+          </div>
+          <h2>Yang perlu diketahui</h2>
+          <p>
+            Seluruh tindakan pada prototype berjalan lokal di browser. Tidak ada
+            server, database, API, atau CLI produksi. Perubahan resource
+            disimpan selama sesi tab dan dapat direset melalui Settings.
+          </p>
+          <div class="public-actions">
+            <a class="public-button" href="login.html">Open demo console →</a
+            ><a href="docs/">Quick Start ↗</a>
+          </div>
+        </article>
+      </div>
+    </main>
+    <footer class="public-footer">
+      <div>
+        <strong>SKYFORGE Technologies</strong>
+        <p>
+          Sudirman Central Business District<br />Jl. Jenderal Sudirman, Jakarta
+          Selatan<br />DKI Jakarta 12190, Indonesia.
+        </p>
+        <a href="https://wa.me/6282191206015">WhatsApp · 082191206015 ↗</a>
+      </div>
+      <div>
+        <a href="calculator/">Pricing calculator</a
+        ><a href="docs/">Documentation</a><a href="status/">System status</a
+        ><a href="changelog/">Changelog</a>
+      </div>
+      <div>
+        <a href="terms/">Terms</a><a href="privacy/">Privacy</a
+        ><a href="security/">Security</a><a href="contact/">Contact / Sales</a>
+      </div>
+      <small
+        >Prototype SKYFORGE · Seluruh layanan, harga, dan operasi cloud
+        merupakan simulasi.</small
+      >
+    </footer>
+    <div class="public-toast" id="publicToast" role="status"></div>
+  <script src="../sf-polish.js" defer></script>
+</body>
+</html>

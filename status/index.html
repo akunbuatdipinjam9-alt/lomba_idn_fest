@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <base href="../" />
+    <title>System status — SKYFORGE</title>
+    <meta
+      name="description"
+      content="Status layanan dan riwayat insiden simulasi SKYFORGE."
+    />
+    <meta property="og:title" content="System status — SKYFORGE" />
+    <meta
+      property="og:description"
+      content="Status layanan dan riwayat insiden simulasi SKYFORGE."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/social-preview.png" />
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="public.css" />
+    <script src="public.js" defer></script>
+  <link rel="stylesheet" href="../sf-polish.css" />
+</head>
+  <body>
+    <a class="public-skip" href="status/#pageContent">Lewati navigasi</a>
+    <nav class="public-nav">
+      <a class="public-brand" href="index.html">▰ SKYFORGE</a>
+      <div>
+        <a href="compute/">Compute</a><a href="storage/">Storage</a
+        ><a href="network/">Network</a><a href="database/">Database</a
+        ><a href="docs/">Docs</a><a href="status/">Status</a
+        ><a class="public-button" href="login.html">Open console ↗</a>
+      </div>
+    </nav>
+    <main id="pageContent">
+      <header class="public-hero">
+        <span class="public-eyebrow">SERVICE HEALTH / DEMO</span>
+        <h1>Status layanan per region.</h1>
+        <p>
+          Periksa lima layanan dan riwayat contoh selama 90 hari. Angka uptime
+          dan insiden pada halaman ini sepenuhnya simulasi.
+        </p>
+      </header>
+      <section class="status-banner">
+        <i></i>
+        <div>
+          <h2>All demo systems operational</h2>
+          <span id="statusUpdated"></span>
+        </div>
+        <label
+          >Region
+          <select id="statusRegion">
+            <option>Jakarta</option>
+            <option>Singapore</option>
+          </select></label
+        >
+      </section>
+      <div id="serviceStatus"></div>
+      <section class="public-prose">
+        <h2>Incident history</h2>
+        <details open>
+          <summary>
+            Demo · Network latency increased · Hari ke-23 dari riwayat
+          </summary>
+          <p>Investigating → Identified → Monitoring → Resolved.</p>
+          <p>
+            Simulasi peningkatan latensi selama 18 menit. Riwayat ini tidak
+            mewakili kejadian operasional.
+          </p>
+        </details>
+        <details>
+          <summary>Demo · Scheduled database maintenance · Hari ke-62</summary>
+          <p>
+            Maintenance window 10 menit, selesai. Semua status berasal dari
+            dataset contoh.
+          </p>
+        </details>
+      </section>
+    </main>
+    <footer class="public-footer">
+      <div>
+        <strong>SKYFORGE Technologies</strong>
+        <p>
+          Sudirman Central Business District<br />Jl. Jenderal Sudirman, Jakarta
+          Selatan<br />DKI Jakarta 12190, Indonesia.
+        </p>
+        <a href="https://wa.me/6282191206015">WhatsApp · 082191206015 ↗</a>
+      </div>
+      <div>
+        <a href="calculator/">Pricing calculator</a
+        ><a href="docs/">Documentation</a><a href="status/">System status</a
+        ><a href="changelog/">Changelog</a>
+      </div>
+      <div>
+        <a href="terms/">Terms</a><a href="privacy/">Privacy</a
+        ><a href="security/">Security</a><a href="contact/">Contact / Sales</a>
+      </div>
+      <small
+        >Prototype SKYFORGE · Seluruh layanan, harga, dan operasi cloud
+        merupakan simulasi.</small
+      >
+    </footer>
+    <div class="public-toast" id="publicToast" role="status"></div>
+  <script src="../sf-polish.js" defer></script>
+</body>
+</html>

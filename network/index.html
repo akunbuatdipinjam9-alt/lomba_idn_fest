@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <base href="../">
+    <title>Network — SKYFORGE</title>
+    <meta name="description" content="Buat subnet demo dan telusuri hubungan antarregion melalui network map.">
+    <meta property="og:title" content="Network — SKYFORGE">
+    <meta property="og:description" content="Buat subnet demo dan telusuri hubungan antarregion melalui network map.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/social-preview.png">
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="public.css">
+    <script src="public.js" defer></script>
+  <link href="register.css" rel="stylesheet"><link rel="stylesheet" href="../sf-polish.css" />
+</head>
+  <body class="product-reference">
+    <a class="public-skip" href="network/#pageContent">Lewati navigasi</a>
+    <nav class="public-nav">
+      <a class="public-brand" href="index.html">▰ SKYFORGE</a>
+      <div>
+        <a href="compute/">Compute</a><a href="storage/">Storage</a><a href="network/">Network</a><a href="database/">Database</a><a href="docs/">Docs</a><a href="status/">Status</a><a class="public-button" href="login.html">Open console ↗</a>
+      </div>
+    </nav>
+    <main id="pageContent">
+      <header class="public-hero">
+        <span class="public-eyebrow">SKYFORGE / NETWORK</span>
+        <h1>Atur jaringan privat per region.</h1>
+        <p>
+          Buat subnet demo dan telusuri hubungan antarregion melalui network
+          map.
+        </p>
+      </header>
+      <div class="public-actions">
+        <a class="public-button" href="login.html">Coba di console →</a><a href="calculator/">Hitung estimasi biaya ↗</a>
+      </div>
+      <section class="public-grid">
+        <article>
+          <span class="public-eyebrow">01</span>
+          <h2>Subnet privat per workspace</h2>
+          <p>
+            Buat jaringan contoh menggunakan subnet 10.42.0.0/24, 10.43.0.0/24,
+            atau 10.44.0.0/24.
+          </p>
+        </article>
+        <article>
+          <span class="public-eyebrow">02</span>
+          <h2>Cegah subnet ganda dalam region</h2>
+          <p>
+            Console menolak subnet yang sudah digunakan pada region yang sama.
+            Region lain dapat memakai subnet tersebut untuk rancangan terpisah.
+          </p>
+        </article>
+        <article>
+          <span class="public-eyebrow">03</span>
+          <h2>Ikuti jalur sebuah request</h2>
+          <p>
+            Diagram homepage menunjukkan User → Edge Network → Load Balancer →
+            Compute → Database. Node mengikuti progress scroll.
+          </p>
+        </article>
+        <article>
+          <span class="public-eyebrow">04</span>
+          <h2>Bandingkan jalur antarregion</h2>
+          <p>
+            Pilih route di network map lalu jalankan demo ping. Nilai latensi
+            berasal dari dataset contoh dan bukan hasil pengukuran internet.
+          </p>
+        </article>
+      </section>
+      <section class="spec-strip">
+        <strong>Private IPv4 network</strong><strong>3 region pada demo</strong><strong>Traffic flow preview</strong>
+      </section>
+      <section class="network-map">
+        <div class="section-title">
+          <h2>One network. Three regions.</h2>
+          <span class="public-tag">SIMULATED TELEMETRY</span>
+        </div>
+        <svg viewBox="0 0 800 250" role="img" aria-label="Diagram jaringan Jakarta terhubung ke Singapore dan Tokyo">
+          <defs>
+            <lineargradient id="mapLine">
+              <stop stop-color="#3e7af5" />
+              <stop offset="1" stop-color="#60d4d1" />
+            </lineargradient>
+          </defs>
+          <path d="M125 160Q280 -10 400 100T675 70M125 160Q400 270 675 70" fill="none" stroke="#2c4263" stroke-width="2" />
+          <path class="traffic-line" d="M125 160Q280 -10 400 100T675 70M125 160Q400 270 675 70" fill="none" stroke="url(#mapLine)" stroke-width="2" stroke-dasharray="6 32" />
+          <g fill="#102a4a" stroke="#6ab7ff" stroke-width="2">
+            <circle cx="125" cy="160" r="17" />
+            <circle cx="400" cy="100" r="17" />
+            <circle cx="675" cy="70" r="17" />
+          </g>
+          <g fill="#79e2bf">
+            <circle cx="125" cy="160" r="5" />
+            <circle cx="400" cy="100" r="5" />
+            <circle cx="675" cy="70" r="5" />
+          </g>
+          <g fill="#e6f1ff" font-size="17" text-anchor="middle">
+            <text x="125" y="205">Jakarta</text>
+            <text x="400" y="145">Singapore</text>
+            <text x="675" y="115">Tokyo</text>
+          </g>
+          <g fill="#92a9c7" font-size="11" text-anchor="middle">
+            <text x="260" y="78">JKT ↔ SGP · 12 ms</text>
+            <text x="545" y="65">SGP ↔ TYO · 68 ms</text>
+            <text x="405" y="225">JKT ↔ TYO · 82 ms</text>
+          </g>
+        </svg>
+        <div class="map-actions">
+          <label>Route
+            <select id="mapRoute">
+              <option value="12">Jakarta ↔ Singapore</option>
+              <option value="68">Singapore ↔ Tokyo</option>
+              <option value="82">Jakarta ↔ Tokyo</option>
+            </select></label><button class="public-button" id="testRoute">Run demo ping</button><output id="mapOutput" aria-live="polite">Nodes operational · demo</output>
+        </div>
+        <p>
+          Diagram koneksi, bukan peta geografis. Latensi dan traffic merupakan
+          data contoh.
+        </p>
+      </section>
+      <section class="public-prose">
+        <h2>Coba alurnya di console.</h2>
+        <ol>
+          <li>Buka Networks lalu pilih Create network.</li>
+          <li>Isi nama, pilih region, dan subnet privat.</li>
+          <li>
+            Periksa region dan CIDR pada daftar Networks; gunakan network map
+            untuk melihat route contoh.
+          </li>
+        </ol>
+        <p>
+          Seluruh spesifikasi di halaman ini adalah rancangan produk. Baca
+          <a href="docs/networking/">dokumentasi demo</a> untuk memahami
+          batasannya.
+        </p>
+      </section>
+      <div class="public-callout">
+        <div>
+          <h2>Coba jaringan privat.</h2>
+          <p>Akun demo sudah tersedia di halaman login.</p>
+        </div>
+        <a class="public-button" href="login.html">Mulai demo →</a>
+      </div>
+    </main>
+    <footer class="public-footer">
+      <div>
+        <strong>SKYFORGE Technologies</strong>
+        <p>
+          Sudirman Central Business District<br>Jl. Jenderal Sudirman, Jakarta
+          Selatan<br>DKI Jakarta 12190, Indonesia.
+        </p>
+        <a href="https://wa.me/6282191206015">WhatsApp · 082191206015 ↗</a>
+      </div>
+      <div>
+        <a href="calculator/">Pricing calculator</a><a href="docs/">Documentation</a><a href="status/">System status</a><a href="changelog/">Changelog</a>
+      </div>
+      <div>
+        <a href="terms/">Terms</a><a href="privacy/">Privacy</a><a href="security/">Security</a><a href="contact/">Contact / Sales</a>
+      </div>
+      <small>Prototype SKYFORGE · Seluruh layanan, harga, dan operasi cloud
+        merupakan simulasi.</small>
+    </footer>
+    <div class="public-toast" id="publicToast" role="status"></div>
+  <script src="../sf-polish.js" defer></script>
+</body>
+</html>
