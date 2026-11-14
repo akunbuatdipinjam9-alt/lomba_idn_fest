@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <base href="../../" />
+    <title>Networking docs — SKYFORGE</title>
+    <meta name="description" content="Rancang koneksi privat antarresource." />
+    <meta property="og:title" content="Networking docs — SKYFORGE" />
+    <meta
+      property="og:description"
+      content="Rancang koneksi privat antarresource."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/social-preview.png" />
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="public.css" />
+    <script src="public.js" defer></script>
+  <link rel="stylesheet" href="../../sf-polish.css" />
+</head>
+  <body>
+    <a class="public-skip" href="docs/networking/#pageContent"
+      >Lewati navigasi</a
+    >
+    <nav class="public-nav">
+      <a class="public-brand" href="index.html">▰ SKYFORGE</a>
+      <div>
+        <a href="compute/">Compute</a><a href="storage/">Storage</a
+        ><a href="network/">Network</a><a href="database/">Database</a
+        ><a href="docs/">Docs</a><a href="status/">Status</a
+        ><a class="public-button" href="login.html">Open console ↗</a>
+      </div>
+    </nav>
+    <main id="pageContent">
+      <div class="docs-layout">
+        <aside>
+          <span class="public-eyebrow">DOCUMENTATION</span
+          ><a href="docs/">Quick Start</a><a href="docs/compute/">Compute</a
+          ><a href="docs/storage/">Storage</a
+          ><a aria-current="page" href="docs/networking/">Networking</a
+          ><a href="docs/api/">API</a><a href="docs/cli/">CLI</a>
+        </aside>
+        <article class="public-prose">
+          <header class="public-hero">
+            <span class="public-eyebrow">GUIDES / NETWORKING</span>
+            <h1>Networking</h1>
+            <p>Rancang koneksi privat antarresource.</p>
+          </header>
+          <span class="public-tag">PROTOTYPE DOCUMENTATION</span>
+          <h2>Overview</h2>
+          <p>
+            Pilih Networks → Create network. Isi nama, pilih region, lalu pilih
+            salah satu subnet 10.42.0.0/24 hingga 10.44.0.0/24. Subnet yang sama
+            tidak dapat dibuat dua kali dalam satu region. Network map
+            menampilkan route antarregion dengan latensi contoh; demo ping tidak
+            mengirim paket jaringan.
+          </p>
+          <h2>Command reference</h2>
+          <div class="code-block">
+            <button data-copy-code="">Copy</button>
+            <pre><code>skyforge networks list</code></pre>
+          </div>
+          <h2>Yang perlu diketahui</h2>
+          <p>
+            Seluruh tindakan pada prototype berjalan lokal di browser. Tidak ada
+            server, database, API, atau CLI produksi. Perubahan resource
+            disimpan selama sesi tab dan dapat direset melalui Settings.
+          </p>
+          <div class="public-actions">
+            <a class="public-button" href="login.html">Open demo console →</a
+            ><a href="docs/">Quick Start ↗</a>
+          </div>
+        </article>
+      </div>
+    </main>
+    <footer class="public-footer">
+      <div>
+        <strong>SKYFORGE Technologies</strong>
+        <p>
+          Sudirman Central Business District<br />Jl. Jenderal Sudirman, Jakarta
+          Selatan<br />DKI Jakarta 12190, Indonesia.
+        </p>
+        <a href="https://wa.me/6282191206015">WhatsApp · 082191206015 ↗</a>
+      </div>
+      <div>
+        <a href="calculator/">Pricing calculator</a
+        ><a href="docs/">Documentation</a><a href="status/">System status</a
+        ><a href="changelog/">Changelog</a>
+      </div>
+      <div>
+        <a href="terms/">Terms</a><a href="privacy/">Privacy</a
+        ><a href="security/">Security</a><a href="contact/">Contact / Sales</a>
+      </div>
+      <small
+        >Prototype SKYFORGE · Seluruh layanan, harga, dan operasi cloud
+        merupakan simulasi.</small
+      >
+    </footer>
+    <div class="public-toast" id="publicToast" role="status"></div>
+  <script src="../../sf-polish.js" defer></script>
+</body>
+</html>

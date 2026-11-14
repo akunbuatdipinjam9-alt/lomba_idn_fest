@@ -1,0 +1,13 @@
+{
+  "name": "skyforge-company-profile",
+  "version": "2.0.0",
+  "private": true,
+  "description": "SKYFORGE cloud company profile and interactive infrastructure prototype",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check script.js && node --check company-upgrade.js && node --check checkout.js && node --check cloud.js && node --check cloud-extras.js && node --check public.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

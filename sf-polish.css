@@ -1,0 +1,18 @@
+/* SKYFORGE micro-interactions */
+:root{--sf-motion:220ms;--sf-accent:#b8e5ff}
+.sf-page-progress{position:fixed;inset:0 auto auto 0;width:100%;height:2px;z-index:99999;pointer-events:none;opacity:0;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#a9dcff,#fff,#4a91ff);transition:transform .38s ease,opacity .2s ease}
+.sf-page-progress.is-loading{opacity:1;transform:scaleX(.76)}
+.sf-page-progress.is-complete{opacity:1;transform:scaleX(1)}
+.sf-nav-line{position:absolute;height:2px;background:currentColor;bottom:0;left:0;width:0;opacity:.8;pointer-events:none;transform:translateX(0);transition:transform .26s cubic-bezier(.2,.8,.2,1),width .26s cubic-bezier(.2,.8,.2,1),opacity .2s ease;z-index:3}
+.sf-nav-host{position:relative}
+.sf-nav-host .nav-link,.sf-nav-host a{position:relative}
+.sf-nav-host .nav-link:focus-visible,.sf-nav-host a:focus-visible{outline:2px solid #b8e5ff;outline-offset:4px;border-radius:3px}
+.sf-cloud-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;isolation:isolate}
+.sf-cloud{position:absolute;display:block;width:clamp(160px,23vw,380px);height:clamp(35px,6vw,92px);border-radius:50%;background:radial-gradient(ellipse at 50% 75%,rgba(255,255,255,.34),rgba(255,255,255,.13) 47%,transparent 73%);filter:blur(13px);opacity:.6;will-change:transform;animation:sf-cloud-drift 24s ease-in-out infinite alternate}
+.sf-cloud::before,.sf-cloud::after{content:'';position:absolute;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.3),transparent 72%)}
+.sf-cloud::before{width:49%;height:130%;left:19%;bottom:15%}.sf-cloud::after{width:34%;height:105%;right:12%;bottom:5%}
+.sf-cloud--one{left:3%;top:19%}.sf-cloud--two{right:7%;bottom:8%;width:clamp(140px,19vw,300px);opacity:.45;animation-duration:32s;animation-delay:-11s}
+.sf-cloud-parent{position:relative;isolation:isolate}.sf-cloud-parent>.sf-cloud-layer~*{position:relative;z-index:1}
+@keyframes sf-cloud-drift{from{transform:translate3d(-18px,0,0)}to{transform:translate3d(26px,-6px,0)}}
+@media(max-width:700px){.sf-cloud{opacity:.27;filter:blur(17px)}.sf-cloud--one{top:12%}.sf-cloud--two{bottom:5%}}
+@media(prefers-reduced-motion:reduce){.sf-cloud{animation:none;will-change:auto}.sf-nav-line,.sf-page-progress{transition:none!important}}
