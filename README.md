@@ -1,90 +1,102 @@
-# SKYFORGE
+# SkyForge
 
-SKYFORGE is a cloud company-profile and interactive infrastructure prototype built with HTML, CSS, vanilla JavaScript, CesiumJS, and a small dependency-free Node.js backend for project consultation submissions.
+SkyForge adalah proyek website yang menampilkan konsep layanan infrastruktur cloud melalui tampilan interaktif. Proyek ini dibuat sebagai bagian dari pengembangan keterampilan di bidang teknologi informasi, khususnya pengembangan website.
 
-## Run the full website
+SkyForge dirancang agar pengguna dapat mengenal berbagai layanan cloud, melihat simulasi pengelolaan server, serta memahami cara kerja beberapa fitur infrastruktur cloud melalui satu website.
 
-Node.js 18+ is recommended.
+## Fitur Utama
+
+### 1. Dashboard Cloud
+Menampilkan informasi penggunaan CPU, RAM, penyimpanan, dan kondisi server. Data yang ditampilkan merupakan simulasi untuk memberikan gambaran tentang pemantauan sumber daya server.
+
+### 2. Layanan Cloud
+SkyForge menyediakan beberapa halaman layanan, yaitu:
+
+- **Compute:** Informasi mengenai layanan komputasi dan server virtual.
+- **Storage:** Informasi mengenai penyimpanan data berbasis cloud.
+- **Network:** Informasi mengenai jaringan dan konektivitas.
+- **Database:** Informasi mengenai layanan pengelolaan basis data.
+
+### 3. Simulasi Deployment
+Menampilkan tahapan proses deployment, mulai dari pembangunan aplikasi, pengujian, penerapan, hingga aplikasi berjalan.
+
+### 4. Visualisasi Lokasi Server
+Menggunakan CesiumJS untuk menampilkan globe tiga dimensi dengan lokasi referensi Jakarta, Singapura, dan Tokyo.
+
+Lokasi dan informasi latensi yang ditampilkan digunakan untuk kebutuhan demonstrasi.
+
+### 5. Kalkulator Harga
+Memungkinkan pengguna menghitung perkiraan biaya layanan berdasarkan pilihan yang tersedia pada website.
+
+### 6. Dokumentasi
+Menyediakan halaman dokumentasi mengenai layanan cloud, API, CLI, dan beberapa fitur lainnya.
+
+### 7. Formulir Konsultasi
+Pengguna dapat mengirimkan informasi mengenai kebutuhan proyek melalui formulir yang terhubung dengan backend Node.js.
+
+Data yang dikirimkan disimpan pada server dalam format JSONL.
+
+## Teknologi yang Digunakan
+
+| Teknologi | Penggunaan |
+|---|---|
+| HTML | Struktur halaman website |
+| CSS | Tampilan dan tata letak |
+| JavaScript | Interaksi dan simulasi |
+| Node.js | Backend dan server website |
+| CesiumJS | Visualisasi globe tiga dimensi |
+
+## Cara Menjalankan
+
+Pastikan Node.js versi 18 atau lebih baru sudah terpasang.
+
+1. Unduh atau ekstrak proyek SkyForge.
+2. Buka terminal pada folder utama proyek yang berisi `package.json`.
+3. Jalankan perintah berikut:
 
 ```bash
 npm start
 ```
 
-Then open `http://127.0.0.1:8080`.
-
-The Node server serves every static route and enables the real `POST /api/project-brief` endpoint. If you only open `index.html` directly or use a generic static server, the website still renders, but the Project Consultation form will correctly report that its backend is unavailable instead of pretending the submission was sent.
-
-To use a different address or port:
-
-```bash
-HOST=0.0.0.0 PORT=3000 npm start
-```
-
-## Homepage highlights
-
-- About SKYFORGE: company explanation, vision, mission, and product purpose.
-- Why Choose SKYFORGE: modern infrastructure, scalable solutions, developer-friendly workflows, and flexible integration.
-- Interactive products and solution architecture.
-- Expanded dashboard preview with demo CPU, RAM, storage, project health, and server monitoring.
-- Animated deployment pipeline: Build → Test → Deploy → Running.
-- Security & Infrastructure: data protection, network security, access management, monitoring, backup, and recovery.
-- Our Projects prototype showcase.
-- Founder/team profile section with an explicit placeholder profile ready to be replaced with verified founder information.
-- Simulated homepage system status for API, Storage, Database, and Console.
-- Project Consultation form connected to the Node.js backend.
-- CesiumJS server-region globe for Jakarta, Singapore, and Tokyo.
-
-All console metrics, region latency, system status, pricing, and deployment progress are explicitly demo/simulated values unless replaced with real infrastructure data.
-
-## Project consultation backend
-
-`POST /api/project-brief` accepts JSON fields for name, email, company, service type, plan, preferred region, and project description. Accepted submissions are appended as one JSON object per line to:
+4. Setelah server berjalan, buka alamat berikut melalui browser:
 
 ```text
-data/project-briefs.jsonl
+http://127.0.0.1:8080
 ```
 
-The backend includes field validation, request-size limits, a honeypot field, basic in-memory rate limiting, safe static path handling, and security response headers. There is intentionally no public endpoint for reading submissions.
+Website dapat dijalankan secara lokal untuk mencoba fitur yang tersedia.
 
-Treat `data/project-briefs.jsonl` as private contact/project data. It is ignored by Git by default. For a real production deployment, store submissions in a managed database or CRM and add authentication/authorization for any internal review interface.
+## Struktur Proyek
 
-## Main routes
+Beberapa file utama yang digunakan dalam pengembangan SkyForge:
 
-- Homepage: `/`
-- Products: `/compute/`, `/storage/`, `/network/`, `/database/`
-- Docs: `/docs/`, `/docs/compute/`, `/docs/storage/`, `/docs/networking/`, `/docs/api/`, `/docs/cli/`
-- Tools: `/calculator/`, `/status/`
-- Information: `/contact/`, `/security/`, `/privacy/`, `/terms/`, `/changelog/`
-- Demo account flow: `login.html`, `app.html`
+| File | Fungsi |
+|---|---|
+| `index.html` | Halaman utama |
+| `styles.css` | Pengaturan tampilan dasar |
+| `skyforge.css` | Tampilan khusus SkyForge |
+| `script.js` | Interaksi pada halaman utama |
+| `server.js` | Server dan API konsultasi |
+| `cloud.js` | Simulasi dashboard cloud |
+| `checkout.js` | Simulasi pembayaran |
+| `server-globe.js` | Visualisasi globe CesiumJS |
 
-## Code map
+## Batasan Proyek
 
-| File | Responsibility |
-| --- | --- |
-| `index.html` | Homepage structure and company-profile sections. |
-| `styles.css`, `skyforge.css` | Base design system and SKYFORGE layout. |
-| `company-upgrade.css` | About, advantages, security, projects, team, pipeline, status, and monitoring UI. |
-| `script.js` | Language/theme, homepage console, pricing, deployment simulation, dialogs, and backend project brief submission. |
-| `company-upgrade.js` | Pipeline stage animation, simulated live metrics/status, and new-section reveals. |
-| `server.js` | Static server and project consultation API. |
-| `pointer.js`, `motion.js` | Pointer and motion/reveal interactions. |
-| `checkout.js` | Illustrative checkout flow. |
-| `cloud.js`, `cloud-extras.js` | Demo cloud workspace/session resources. |
-| `public.js` | Calculator, public status utilities, docs helpers, and network map. |
-| `server-globe.js` | CesiumJS demo region globe. |
+SkyForge merupakan prototipe yang dibuat untuk keperluan pembelajaran dan demonstrasi dalam lomba IT.
 
-## Checks
+Beberapa fitur, seperti monitoring server, deployment, informasi latensi, status layanan, dan pembayaran, masih menggunakan data simulasi.
 
-Run syntax checks with:
+Proyek ini belum menyediakan layanan penyewaan server cloud secara langsung.
 
-```bash
-npm run check
-```
+## Tujuan Pengembangan
 
-The Project Consultation endpoint has been tested end-to-end with a local Node server: a valid POST returns HTTP 201 and persists a JSONL record. Test records are removed from the distributed archive.
+Melalui proyek SkyForge, pengembang ingin menerapkan pengetahuan mengenai HTML, CSS, JavaScript, dan Node.js dalam sebuah website yang memiliki beberapa fitur saling terhubung.
 
-Before a production launch, also test the website on desktop/mobile browsers and replace all placeholder/demo company data, founder information, infrastructure claims, addresses, prices, and region availability with verified information.
+Proyek ini juga menjadi sarana untuk mempelajari perancangan antarmuka, pengembangan backend, visualisasi data, dan pengelolaan struktur kode.
 
-## Cesium globe
+## Penutup
 
-The homepage globe uses CesiumJS 1.121 from the official CDN and Natural Earth imagery. It does not require a Cesium ion token. The Jakarta, Singapore, and Tokyo points are city-level demo reference locations, not server facility addresses, and their shown latency is not live network measurement.
+SkyForge masih dapat dikembangkan lebih lanjut, baik dari segi tampilan, fitur, maupun integrasi sistem.
+
+Pengembangan berikutnya dapat difokuskan pada peningkatan interaktivitas, penyempurnaan dashboard, dan penambahan fitur pengelolaan server yang lebih lengkap.
