@@ -169,7 +169,7 @@
     Math.floor((Date.now() - vm.deployStartedAt) / stepMs)));
   const state = (vm) => vm.deployStartedAt
     ? vm.status + " · " + (steps[phase(vm)] || "Menyelesaikan instalasi")
-    : vm.status;
+    : vm.status + (vm.incident ? " · Gangguan storage" : "");
   const advance = (vm) => {
     if (!data.instances.includes(vm) || !vm.deployStartedAt) return;
     const step = phase(vm);
@@ -187,6 +187,7 @@
     setTimeout(() => advance(vm), vm.deployStartedAt + (step + 1) * stepMs - Date.now());
   };
   const titles = {
+    lab: "VPS Lab",
     overview: "Overview",
     instances: "Compute instances",
     volumes: "Volumes",
@@ -368,6 +369,9 @@
       html += `<div class="cloud-panel"><div class="settings-form"><p class="muted">Akhiri sesi demo dan kembali ke halaman login.</p>${button("Keluar dari sesi demo", "logout")}</div></div>`;
     if (["volumes", "networks", "keys"].includes(view) && window.skyforgeExtras)
       html = window.skyforgeExtras.render(data, view);
+    if (data.instances.some((vm) => vm.incident))
+      html = `<p class="cloud-notice" role="status">Gangguan storage: ${data.instances.filter((vm) => vm.incident).map((vm) => escape(vm.name)).join(", ")}.</p>` + html;
+    if (view === "lab") html += lab();
     $("#appContent").innerHTML = html;
   };
   const go = (next) => {
@@ -405,6 +409,7 @@
       return;
     if (target.dataset.action === "logout") return $("#logoutButton").click();
     if (target.dataset.goto) return go(target.dataset.goto);
+    if (target.dataset.action === "manage") return go("instances");
     if (target.dataset.action === "create") return openInstance();
     if (target.dataset.terminal) {
       terminalInstanceId = target.dataset.terminal;
@@ -416,6 +421,7 @@
       $("#terminalDialog").showModal();
       $("#terminalCommand").focus();
     }
+    if (target.dataset.labAction) return labAction(target.dataset.labAction);
     if (target.dataset.toggle) {
       const instance = data.instances.find(
         (item) => item.id === target.dataset.toggle,
@@ -515,6 +521,10 @@
     }
   });
   $("#appContent").addEventListener("change", (event) => {
+    if (event.target.id === "labServer") {
+      labServer = event.target.value;
+      render();
+    }
     if (event.target.id === "instanceRegion") {
       regionFilter = event.target.value;
       render();
@@ -525,6 +535,7 @@
     go("instances");
   });
   $("#appContent").addEventListener("submit", (event) => {
+    if (event.target.id === "labFiles") return addDemoFiles(event);
     if (event.target.id !== "settingsForm") return;
     event.preventDefault();
     if (!event.target.checkValidity()) return;
@@ -598,12 +609,17 @@
       return;
     }
     let result = "Instance sudah tidak tersedia.";
-    if (command === "help") result = "Perintah: help, status, uptime, neofetch, clear";
+    if (command === "help") result = "Perintah: help, ls, status, uptime, neofetch, clear";
     else if (vm) {
       const size = sizes[vm.size];
       const seconds = Math.max(0, Math.floor((Date.now() - vm.bootedAt) / 1000));
       const uptime = `${Math.floor(seconds / 3600)}j ${Math.floor(seconds / 60) % 60}m ${seconds % 60}d`;
       switch (command) {
+        case "ls":
+          result = vm.status !== "Running" ? "VPS belum aktif." :
+            vm.incident ? "Penyimpanan tidak tersedia selama gangguan." :
+            ["etc/", "home/", "var/", ...(vm.demoFiles || []).map((file) => file.name + (file.folder ? "/" : ""))].join("  ");
+          break;
         case "status":
           result = `${vm.name}: ${state(vm)} · ${vm.region} · ${vm.ip}`;
           break;
@@ -694,6 +710,114 @@
         ).join(""),
       );
   }, 2500);
+  let labServer;
+  const samples = new Map();
+  const selectedServer = () => data.instances.find((vm) => vm.id === labServer) || data.instances[0];
+  const metricsNames = ["CPU (%)", "RAM (%)", "Disk (MB/s)", "Jaringan (Mb/s)"];
+  const lab = () => {
+    const vm = selectedServer();
+    const title = heading("VPS Lab", "Pantau VPS, uji gangguan, dan pulihkan kondisi server simulasi.", button("Compute instances", "manage"));
+    if (!vm) return title + '<p>Buat instance terlebih dahulu.</p>';
+    const files = vm.demoFiles || [];
+    return title + `<label class="cloud-field">Server<select id="labServer">${data.instances.map((item) =>
+      `<option value="${escape(item.id)}"${item === vm ? " selected" : ""}>${escape(item.name)}</option>`).join("")}</select></label>
+      <p role="status">${escape(state(vm))}</p>
+      <button class="cloud-button secondary" data-terminal="${escape(vm.id)}">Terminal</button>
+      <div class="lab-grid" id="labCharts">${labCharts(vm)}</div>
+      <section class="cloud-panel lab-panel"><h2>Gangguan dan snapshot</h2>
+        <button class="cloud-button secondary" data-lab-action="incident"${vm.status !== "Running" || vm.incident ? " disabled" : ""}>Simulasikan gangguan storage</button>
+        <button class="cloud-button secondary" data-lab-action="recover"${!vm.incident ? " disabled" : ""}>Pulihkan storage</button>
+        <button class="cloud-button secondary" data-lab-action="snapshot"${vm.status === "Provisioning" ? " disabled" : ""}>Simpan snapshot</button>
+        <button class="cloud-button secondary" data-lab-action="restore"${!vm.snapshot || vm.status === "Provisioning" ? " disabled" : ""}>Restore snapshot</button>
+        ${vm.snapshot ? `<p>Snapshot tersimpan: ${new Date(vm.snapshot.time).toLocaleString("id-ID")}</p>` : ""}
+      </section>
+      <section class="cloud-panel lab-panel"><h2>Cloud File Manager</h2>
+        ${vm.incident ? "<p>Storage sedang terganggu.</p>" : `<form id="labFiles" class="lab-grid">
+          <label class="cloud-field">Nama folder<input name="folder" maxlength="80"></label>
+          <label class="cloud-field">File demo<input name="files" type="file" multiple></label>
+          <button class="cloud-button primary">Tambahkan</button>
+        </form><ul>${files.map((file, index) => `<li>${escape(file.name)}${file.folder ? "/" : ""}
+          <button class="text-button" data-lab-action="rename:${index}">Ganti nama</button>
+          <button class="text-button" data-lab-action="delete:${index}">Hapus</button></li>`).join("")}</ul>`}
+      </section>
+      <section class="cloud-panel lab-panel"><h2>Network Topology</h2>
+        <div class="lab-topology"><details><summary>Jaringan</summary>${escape(vm.region)} · ${escape(vm.ip)}</details>
+        <span aria-hidden="true">→</span><details><summary>VPS</summary>${escape(vm.name)} · ${escape(state(vm))}</details>
+        <span aria-hidden="true">→</span><div><details><summary>Database</summary>${vm.status === "Running" ? "Terhubung ke VPS" : "Akses dari VPS terhenti"}</details>
+        <details><summary>Storage ${vm.incident ? "· Terganggu" : ""}</summary>${vm.incident ? "File manager dan akses storage dari VPS terdampak." : "Storage tersedia."}</details></div></div>
+      </section>`;
+  };
+  const labCharts = (vm) => metricsNames.map((name, index) => {
+    const history = samples.get(vm.id) || [];
+    const points = history.map((row, tick) => `${tick * 10},${100 - row[index]}`).join(" ");
+    return `<figure class="cloud-panel lab-panel"><figcaption>${name} · ${vm.status === "Running" ? history.at(-1)?.[index] ?? "—" : "Dijeda"}</figcaption>
+      <svg viewBox="0 0 230 100" aria-hidden="true"><polyline points="${points}" fill="none" stroke="currentColor" stroke-width="2"/></svg></figure>`;
+  }).join("");
+  const labAction = (action) => {
+    const vm = selectedServer();
+    if (!vm) return;
+    if (action === "incident") vm.incident = true;
+    else if (action === "recover") vm.incident = false;
+    else if (action === "snapshot") {
+      vm.snapshot = { time: Date.now(), status: vm.status, incident: vm.incident,
+        files: structuredClone(vm.demoFiles || []) };
+    } else if (action === "restore" && vm.snapshot) {
+      vm.status = vm.snapshot.status;
+      vm.incident = vm.snapshot.incident;
+      vm.demoFiles = structuredClone(vm.snapshot.files);
+      vm.bootedAt = vm.status === "Running" ? Date.now() : null;
+      samples.delete(vm.id);
+    } else {
+      if (vm.incident) return;
+      const [operation, position] = action.split(":");
+      const file = vm.demoFiles?.[Number(position)];
+      if (!file) return;
+      if (operation === "delete") vm.demoFiles.splice(Number(position), 1);
+      else if (operation === "rename") {
+        const name = window.prompt("Nama baru", file.name)?.trim();
+        if (!name || name === file.name) return;
+        if (name.length > 80 || vm.demoFiles.some((item) => item.name === name))
+          return notify("Nama terlalu panjang atau sudah dipakai.");
+        file.name = name;
+      }
+    }
+    const messages = {
+      incident: "Gangguan storage aktif", recover: "Storage pulih",
+      snapshot: "Snapshot tersimpan", restore: "Snapshot dipulihkan",
+    };
+    activity(vm.name + ": " + (messages[action] || "File demo diperbarui"));
+    render();
+  };
+  const addDemoFiles = (event) => {
+    event.preventDefault();
+    const vm = selectedServer();
+    if (!vm || vm.incident) return;
+    const form = new FormData(event.target);
+    const folder = String(form.get("folder")).trim();
+    const entries = form.getAll("files").filter((file) => file.name)
+      .map((file) => ({ name: file.name, size: file.size, folder: false }));
+    if (folder) entries.unshift({ name: folder, folder: true });
+    if (!entries.length) return notify("Masukkan nama folder atau pilih file.");
+    vm.demoFiles ||= [];
+    for (const entry of entries) {
+      if (vm.demoFiles.length >= 50) break;
+      if (!vm.demoFiles.some((file) => file.name === entry.name)) vm.demoFiles.push(entry);
+    }
+    activity(vm.name + ": penyimpanan demo diperbarui");
+    render();
+  };
+  setInterval(() => {
+    for (const vm of data.instances) {
+      if (vm.status !== "Running") continue;
+      const history = samples.get(vm.id) || [];
+      const load = Math.round(15 + Math.random() * 45);
+      history.push([vm.incident ? Math.min(100, load + 40) : load,
+        Math.round(22 + load / 2), vm.incident ? 0 : Math.round(load / 3), Math.round(load / 2)]);
+      samples.set(vm.id, history.slice(-24));
+    }
+    const vm = selectedServer();
+    if (vm?.status === "Running" && $("#labCharts")) $("#labCharts").innerHTML = labCharts(vm);
+  }, 1000);
   render();
   data.instances.filter((vm) => vm.deployStartedAt).forEach(advance);
 })();
